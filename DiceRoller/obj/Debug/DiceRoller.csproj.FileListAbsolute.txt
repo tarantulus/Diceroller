@@ -28,3 +28,4 @@ D:\GIT\Diceroller\DiceRoller\bin\System.Web.WebPages.Deployment.xml
 D:\GIT\Diceroller\DiceRoller\bin\System.Web.WebPages.Razor.xml
 D:\GIT\Diceroller\DiceRoller\obj\Debug\DiceRoller.dll
 D:\GIT\Diceroller\DiceRoller\obj\Debug\DiceRoller.pdb
+D:\GIT\Diceroller\DiceRoller\obj\Debug\DiceRoller.csprojResolveAssemblyReference.cache
