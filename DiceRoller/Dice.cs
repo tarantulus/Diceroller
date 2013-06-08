@@ -58,6 +58,7 @@ namespace DiceRoller
                         int.TryParse(match.Groups[2].Value, out num);
                         int.TryParse(match.Groups[4].Value, out max);
                         if (match.Groups[3].Success == true) {
+                            num = num > 0 ? num : 1;
                             res.AddRange(Roll(max,num));
                             for ( int j=1; j<=num; j++) {
                                 type.Add(max);
