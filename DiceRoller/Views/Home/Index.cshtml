@@ -33,12 +33,9 @@
             var chat = $.connection.diceHub;
             // Create a function that the hub can call to broadcast messages.
             chat.client.broadcastMessage = function (name, message) {
-                // Html encode display name and message. 
-                var encodedName = $('<div />').text(name).html();
-                var encodedMsg = $('<div />').text(message).html();
                 // Add the message to the page. 
-                $('#log').append('<li><strong>' + encodedName
-                    + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
+                $('#log').append('<li><strong>' + name
+                    + '</strong>:&nbsp;&nbsp;' + message + '</li>');
             };
             // Get the user name and store it to prepend to messages.
             $('#displayname').val("Ross");
