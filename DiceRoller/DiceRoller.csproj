@@ -238,6 +238,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\Sketchpad.cshtml" />
+    <Content Include="Views\Shared\_SketchPadPartial.cshtml" />
+    <Content Include="Views\Shared\_DieRollerPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

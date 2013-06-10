@@ -13,24 +13,25 @@ function init() {
     canvas = $("#sketchPad").get(0);
     context = canvas.getContext('2d');
     canvas.addEventListener('mousemove', onMouseMove, false);
-    canvas.addEventListener('click', onClick, false);
-    canvas.width = window.innerWidth - 75;
-    canvas.height = window.innerHeight - 75;
-
     canvas.addEventListener('mousedown', function (e) { penDown = true; }, false);
     canvas.addEventListener('mouseup', function (e) { penDown = false; started = false; }, false);
 
 }
 
-function onMouseMove(ev) {
+function onMouseMove(e) {
     var x, y;
 
     // Get the mouse position.
-    if (ev.layerX >= 0) {
-        x = ev.layerX;
-        y = ev.layerY;
+    if (e.offsetX) {
+        x = e.offsetX;
+        y = e.offsetY;
     }
-
+    else if (e.layerX) {
+        if (e.layerX >= 0) {
+            x = e.layerX;
+            y = e.layerY;
+        }
+    }
     if (penDown) {
 
         if (!started) {
@@ -45,11 +46,6 @@ function onMouseMove(ev) {
         }
 
     }
-
-    $('#stats').text(x + ', ' + y);
-}
-
-function onClick(e) {
 }
 
 function onColorClick(color) {

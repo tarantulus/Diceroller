@@ -24,5 +24,7 @@ namespace DiceRoller
 
             return _instance;
         }
+
+        public string LastImg { get; set; }
     }
 }

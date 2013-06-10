@@ -15,15 +15,15 @@ namespace DiceRoller
     {
         Log _log = Log.Instance();
         Helpers.HTMLhelper _htmlHelper = new Helpers.HTMLhelper();
-
         public void GetLog()
         {
             foreach (KeyValuePair<string, string> entry in _log)
             {
                 string name = entry.Key;
-                string msg = entry.Value;
+                string msg = entry.Value;                
                 Clients.Caller.broadcastMessage(name, msg);
             }
+            SendCanvas(_log.LastImg);
         }
 
         public void Send(string name, string msg, string die, int rolls)
@@ -61,6 +61,7 @@ namespace DiceRoller
 
         public void SendCanvas(string img)
         {
+            _log.LastImg = img;
             Clients.All.broadcastImg(img);
         }
     }

@@ -1,0 +1,14 @@
+﻿<script type="text/javascript" src=@Url.Content("~/Content/js/sketchPad.js")></script>
+
+<h2>Sketchpad</h2>
+<input type='text' id="colourPicker" value="#000" />
+<script type="text/javascript">
+    $("#colourPicker").spectrum({
+        change: onColorClick
+    });
+</script>
+<div id="container">
+    <canvas id="sketchPad" width="800px" height="600px">
+        <p>Unsupported Browser</p>
+    </canvas>
+</div>
