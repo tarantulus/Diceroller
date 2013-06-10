@@ -43,6 +43,7 @@
             $('#message').focus();
             // Start the connection.
             $.connection.hub.start().done(function () {
+                chat.server.getLog();
                 $('#sendmessage').click(function () {
                     // Call the Send method on the hub.
                     if (!$('#diceroll').val()) {
