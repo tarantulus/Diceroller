@@ -17,11 +17,6 @@ function init() {
     canvas.width = window.innerWidth - 75;
     canvas.height = window.innerHeight - 75;
 
-    //set colorpicker events
-    $('.sp-choose').click(function (e) {
-        onColorClick($('colourPicker').get(0).value);
-    }, false);
-
     canvas.addEventListener('mousedown', function (e) { penDown = true; }, false);
     canvas.addEventListener('mouseup', function (e) { penDown = false; started = false; }, false);
 
@@ -63,11 +58,7 @@ function onColorClick(color) {
     context.beginPath();
 
     // Select the new color.
-    context.strokeStyle = color;
+    context.strokeStyle = color.toHex();
 }
 
-function onSave() {
-    var img = canvas.toDataURL("image/png");
-    document.write('<img src="' + img + '"/>');
-}
 

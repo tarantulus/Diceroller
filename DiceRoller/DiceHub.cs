@@ -58,5 +58,10 @@ namespace DiceRoller
             }
             
         }
+
+        public void SendCanvas(string img)
+        {
+            Clients.All.broadcastImg(img);
+        }
     }
 }
