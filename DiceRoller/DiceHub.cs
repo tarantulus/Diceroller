@@ -12,6 +12,18 @@ namespace DiceRoller
 {
     public class DiceHub : Hub
     {
+        Log _log;
+        public void LoadLog()
+        {
+            if (_log != null)
+            {
+                foreach (KeyValuePair<string, string> entry in _log)
+                {
+                    Clients.Caller.broadcastMessage(entry.Key, entry.Value);
+                }
+            }
+        }
+
         Helpers.HTMLhelper _htmlHelper = new Helpers.HTMLhelper();
         public void Send(string name, string msg, string die, int rolls)
         {
@@ -25,6 +37,8 @@ namespace DiceRoller
             {
                 Clients.All.broadcastMessage(name, msg);
             }
+
+            SaveToLog(name, msg);
         }
 
         public void SendDie(string name, string msg, string die, int numRolls)
@@ -40,6 +54,11 @@ namespace DiceRoller
                 
             }
             
+        }
+
+        public void SaveToLog(string name, string msg)
+        {
+            _log.Add(new KeyValuePair<string, string> (name, msg) );
         }
     }
 }

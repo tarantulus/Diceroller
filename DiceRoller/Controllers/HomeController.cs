@@ -19,5 +19,10 @@ namespace DiceRoller.Controllers
         {
             return View();
         }
+
+        public ActionResult Sketchpad()
+        {
+            return View();
+        }
     }
 }

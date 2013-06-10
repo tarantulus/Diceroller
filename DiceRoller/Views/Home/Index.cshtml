@@ -1,18 +1,5 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title>SignalR Simple Chat</title>
-    <style type="text/css">
-        .container {
-            background-color: #99CCFF;
-            border: thick solid #808080;
-            padding: 20px;
-            margin: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
+﻿    <div class="container">
+        <label for="message">Message</label>
         <input type="text" id="message" />
         <label for="diceroll">Dice to roll</label>
         <input type="text" id="diceroll" />
@@ -43,6 +30,7 @@
             $('#message').focus();
             // Start the connection.
             $.connection.hub.start().done(function () {
+                chat.server.loadLog();
                 $('#sendmessage').click(function () {
                     // Call the Send method on the hub.
                     if (!$('#diceroll').val()) {
@@ -61,5 +49,4 @@
             });
         });
     </script>
-</body>
-</html>
+
