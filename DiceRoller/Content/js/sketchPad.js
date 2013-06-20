@@ -16,12 +16,12 @@ function init() {
     $('#line').bind("click", function () { setTool('line') });
     $('#rectangle').bind("click", function () { setTool('rectangle') });
     $('#eraser').bind("click", function () { setTool('pen'); setColour('#fff') });
-    $('#pen').bind("click", function () { setTool('pen') });
-    canvas.addEventListener('mousemove', onMouseMove, false);
+    $('#pen').bind("click", function () { setTool('pen') });    
     canvas.addEventListener('mousedown', function (e) {
         penDown = true;
         startx = typeof e.offsetX !== 'undefined' ? e.offsetX : e.layerX;
         starty = typeof e.offsetY !== 'undefined' ? e.offsetY : e.layerY;
+        canvas.addEventListener('mousemove', onMouseMove, false);
     }, false);
     canvas.addEventListener('mouseup', function (e) { penDown = false; started = false; }, false);
 
@@ -54,16 +54,13 @@ function onMouseMove(e) {
         case "line":
             if (penDown) {
 
-                if (!started) {
-                    started = true;
-
-                    context.beginPath();
-                    context.moveTo(startx, starty);
-                    context.lineTo(x, y);
-                    context.stroke();
-                    context.closePath();
-                }
-
+                context.beginPath();
+                context.moveTo(startx, starty);
+                context.lineTo(x, y);
+            }
+            else {
+                context.stroke();
+                context.closePath();
             }
             break;
         case "rectangle":
