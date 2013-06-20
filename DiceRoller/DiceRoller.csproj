@@ -134,6 +134,23 @@
     <Content Include="Content\bootstrap\img\glyphicons-halflings.png" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\css\images\animated-overlay.gif" />
+    <Content Include="Content\css\images\ui-bg_flat_30_cccccc_40x100.png" />
+    <Content Include="Content\css\images\ui-bg_flat_50_5c5c5c_40x100.png" />
+    <Content Include="Content\css\images\ui-bg_glass_20_555555_1x400.png" />
+    <Content Include="Content\css\images\ui-bg_glass_40_0078a3_1x400.png" />
+    <Content Include="Content\css\images\ui-bg_glass_40_ffc73d_1x400.png" />
+    <Content Include="Content\css\images\ui-bg_gloss-wave_25_333333_500x100.png" />
+    <Content Include="Content\css\images\ui-bg_highlight-soft_80_eeeeee_1x100.png" />
+    <Content Include="Content\css\images\ui-bg_inset-soft_25_000000_1x100.png" />
+    <Content Include="Content\css\images\ui-bg_inset-soft_30_f58400_1x100.png" />
+    <Content Include="Content\css\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\css\images\ui-icons_4b8e0b_256x240.png" />
+    <Content Include="Content\css\images\ui-icons_a83300_256x240.png" />
+    <Content Include="Content\css\images\ui-icons_cccccc_256x240.png" />
+    <Content Include="Content\css\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\css\jquery-ui-1.10.3.custom.css" />
+    <Content Include="Content\css\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="Content\css\spectrum.css" />
     <Content Include="Content\js\sketchPad.js" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -240,6 +257,7 @@
     <Content Include="Views\Home\Sketchpad.cshtml" />
     <Content Include="Views\Shared\_SketchPadPartial.cshtml" />
     <Content Include="Views\Shared\_DieRollerPartial.cshtml" />
+    <Content Include="Views\Shared\_CSEPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

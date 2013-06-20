@@ -3,6 +3,21 @@
     top: -50px;
 }
 
+#toolbar
+{
+    width:800px;
+}
+
+#toolbar ul
+    {
+        width:500px;
+    }
+    #toolbar li
+    {
+        list-style-type:none;
+float:left;
+    }
+
 
 .container {
     float: left;
@@ -13,4 +28,10 @@
 canvas {
     float: left;
     margin: 20px;
+}
+
+#opener
+{
+    position:absolute;
+    top:10px;
 }

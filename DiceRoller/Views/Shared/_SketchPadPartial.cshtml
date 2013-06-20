@@ -1,13 +1,23 @@
-﻿<script type="text/javascript" src=@Url.Content("~/Content/js/sketchPad.js")></script>
+﻿
+<script type="text/javascript" src=@Url.Content("~/Content/js/sketchPad.js")></script>
 
 <h2>Sketchpad</h2>
+
+<div class="container">
+    <div id="toolbar">
+        <ul>
+    <li id="line" class="ui-icon ui-icon-arrow-2-e-w"></li>
+    <li id="pen" class="ui-icon ui-icon-pencil"></li>
+    <li id="rectangle" class="ui-icon ui-icon-stop"></li>
+</ul>
 <input type='text' id="colourPicker" value="#000" />
 <script type="text/javascript">
     $("#colourPicker").spectrum({
-        change: onColorClick
+        change: setColour,
+        clickoutFiresChange: true
     });
 </script>
-<div id="container">
+    </div>
     <canvas id="sketchPad" width="800px" height="600px">
         <p>Unsupported Browser</p>
     </canvas>

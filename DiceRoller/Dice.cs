@@ -17,7 +17,7 @@ namespace DiceRoller
             List<int> Rolls = new List<int>();
             for (int i = 0; i < numRolls; i++)
             {
-                Rolls.Add(_rand.Next(1, sides));
+                Rolls.Add(_rand.Next(1, sides + 1));
             }
             return Rolls;
         }
@@ -44,7 +44,6 @@ namespace DiceRoller
 
             diestring = diestring.Replace("-","+ -");
             diestring = diestring.ToLower();
-        
             var items = diestring.Split('+');
             var res = new List<int>();
             var type = new List<int>();
