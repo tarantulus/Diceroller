@@ -44,8 +44,6 @@ namespace DiceRoller
         public void SendDie(string name, string msg, string die, int numRolls)
         {
             Dice roller = new Dice(); 
-            Clients.All.broadcastMessage(name, msg);
-            _log.Add(new KeyValuePair<string,string>(name,msg));
             // Call the broadcastMessage method to update clients.
             for (int i = 0; i < numRolls; i++)
             {
@@ -54,11 +52,13 @@ namespace DiceRoller
                 //ewwww! this whole block needs to be fixed! make it JSON!
                     string html =_htmlHelper.Roll2HTML(parsedRolls);
                     html = die + "<br/>" +html + "<br/><br/>";
-                    Clients.All.broadcastMessage(i + 1,html);
-                    string counter = (i+1).ToString();
+                    string counter = (numRolls - i).ToString();
+                    Clients.All.broadcastMessage(counter,html);                    
                     _log.Insert(0,new KeyValuePair<string, string>(counter,html));
                 
             }
+            Clients.All.broadcastMessage(name, msg);
+            _log.Add(new KeyValuePair<string, string>(name, msg));
             
         }
 
