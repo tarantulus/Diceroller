@@ -50,10 +50,13 @@ namespace DiceRoller
             for (int i = 0; i < numRolls; i++)
             {
                     var parsedRolls = roller.Parse(die);
+
+                //ewwww! this whole block needs to be fixed! make it JSON!
                     string html =_htmlHelper.Roll2HTML(parsedRolls);
+                    html = die + "<br/>" +html + "<br/><br/>";
                     Clients.All.broadcastMessage(i + 1,html);
                     string counter = (i+1).ToString();
-                    _log.Add(new KeyValuePair<string, string>(counter,html));
+                    _log.Insert(0,new KeyValuePair<string, string>(counter,html));
                 
             }
             
