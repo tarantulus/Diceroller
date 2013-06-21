@@ -9,7 +9,7 @@
         // Create a function that the hub can call to broadcast messages.
         chat.client.broadcastMessage = function (name, message) {
             // Add the message to the page. 
-            $('#log').append('<li><strong>' + name
+            $('#log').prepend('<li><strong>' + name
                 + '</strong>:&nbsp;&nbsp;' + message + '</li>');
         };
 
