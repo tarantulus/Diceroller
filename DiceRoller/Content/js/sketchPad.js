@@ -16,7 +16,10 @@ function init() {
     $('#line').bind("click", function () { setTool('line') });
     $('#rectangle').bind("click", function () { setTool('rectangle') });
     $('#eraser').bind("click", function () { setTool('pen'); setColour('#fff') });
-    $('#pen').bind("click", function () { setTool('pen') });    
+    $('#pen').bind("click", function () { setTool('pen') });
+    $('#size').change(function () {
+        setSize($(this).attr('value'));
+    });
     canvas.addEventListener('mousedown', function (e) {
         penDown = true;
         startx = typeof e.offsetX !== 'undefined' ? e.offsetX : e.layerX;
@@ -93,6 +96,10 @@ function setColour(color) {
 
 function setTool(tool) {
     currentTool = tool;
+}
+
+function setSize(size) {
+    context.lineWidth = size;
 }
 
 

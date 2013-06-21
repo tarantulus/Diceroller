@@ -25,7 +25,7 @@ namespace DiceRoller
         public List<Int32> DropLowest(List<Int32> rolls)
         {
             Int32 lowestIndex = rolls.IndexOf(rolls.Min());
-            rolls.Remove(lowestIndex);
+            rolls.RemoveAt(lowestIndex);
             return rolls;
         }
 
