@@ -66,15 +66,17 @@ function onMouseMove(e) {
         case "rectangle":
             if (penDown) {
 
-                if (!started) {
-                    started = true;
-
-                    context.beginPath();
-                    context.moveTo(x, y);
-                    context.lineTo(x, y);
-                    context.stroke();
-                }
-
+                context.beginPath();
+                context.moveTo(startx, starty);
+                var rectx = Math.min(x, startx);
+                var recty = Math.min(y, starty);
+                var width = Math.abs(x - startx);
+                var height = Math.abs(y - starty);
+                context.rect(rectx, recty, width, height);
+            }
+            else {
+                context.stroke();
+                context.closePath();
             }
             break;
     }
