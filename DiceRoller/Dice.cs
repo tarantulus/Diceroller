@@ -51,7 +51,7 @@ namespace DiceRoller
             int max = new int();
             for (var i = 0; i < items.Length; i++)
             {
-                var match = Regex.Match(items[i], @"^[ \t]*(-)?(\d+)?(?:(d)(\d+))?[ \t]*$");
+                var match = Regex.Match(items[i], @"^[ \t]*(-)?(\d+)?(?:(d)(\d+))?(l)?[ \t]*$");
                     if (match.Success) {
                         var sign = match.Groups[1].Success == true?-1:1;
                         int.TryParse(match.Groups[2].Value, out num);
@@ -63,9 +63,15 @@ namespace DiceRoller
                                 type.Add(max);
                             }
                         }
-                        else {
+                        else if (num > 0) {
+
                             res.Add(sign * num);
                             type.Add(0);
+                        }
+                        if (match.Groups[5].Success == true)
+                        {
+                            res = DropLowest(res);
+                            type.Remove(type.LastOrDefault());
                         }
                     } 
                     
