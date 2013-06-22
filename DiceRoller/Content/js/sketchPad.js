@@ -7,6 +7,7 @@ var canvas, context;
 var lastColor = 'black';
 var penDown = false;
 var currentTool = "pen";
+var reader = new FileReader();
 
 function init() {
 
@@ -27,6 +28,14 @@ function init() {
         canvas.addEventListener('mousemove', onMouseMove, false);
     }, false);
     canvas.addEventListener('mouseup', function (e) { penDown = false; started = false; }, false);
+    canvas.addEventListener('mouseout', function (e) {
+        context.closePath();
+        context.moveTo(0, 0);
+        context.lineTo(0,0);
+        context.rect(0, 0, 0, 0);
+    }, false);
+    canvas.addEventListener('dragover', function (e) { e.preventDefault(); });
+    canvas.addEventListener('drop', function (e) { dropImage(e); }, false);
 
 }
 
@@ -43,7 +52,7 @@ function onMouseMove(e) {
 
                 if (!started) {
                     started = true;
-
+                    context.closePath();
                     context.beginPath();
                     context.moveTo(x, y);
                 }
@@ -56,7 +65,7 @@ function onMouseMove(e) {
             break;
         case "line":
             if (penDown) {
-
+                context.closePath();
                 context.beginPath();
                 context.moveTo(startx, starty);
                 context.lineTo(x, y);
@@ -68,7 +77,7 @@ function onMouseMove(e) {
             break;
         case "rectangle":
             if (penDown) {
-
+                context.closePath();
                 context.beginPath();
                 context.moveTo(startx, starty);
                 var rectx = Math.min(x, startx);
@@ -100,6 +109,28 @@ function setTool(tool) {
 
 function setSize(size) {
     context.lineWidth = size;
+}
+
+function dropImage(e) {
+    if (e.preventDefault) e.preventDefault();
+    e.stopPropagation();
+    var files = e.dataTransfer.files; // FileList object
+    var reader = new FileReader();
+    var f = files[0];
+    // Closure to capture the file information.
+    reader.onload = (function (theFile) {
+        return function (evt) {
+            // Render thumbnail.
+            var imageObj = new Image();
+            imageObj.src = evt.target.result;
+            imageObj.onload = function () {
+                context.drawImage(this, 0, 0, canvas.width, canvas.height);
+            };
+        };
+    })(f);
+
+    // Read in the image file as a data URL.
+    reader.readAsDataURL(f);
 }
 
 

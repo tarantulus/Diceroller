@@ -21,6 +21,10 @@
             };
         };
 
+        chat.client.clearImg = function () {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+        };
+
         // Get the user name and store it to prepend to messages.
         $('#displayname').val(prompt("Please enter your name"));
         // Set initial focus to message input box.  
@@ -32,16 +36,18 @@
                 var img = canvas.toDataURL("image/png");
                 chat.server.sendCanvas(img);
             });
-            $('#clear').mouseup(function () {
-                context.clearRect(0, 0, canvas.width, canvas.height)
-                var img = canvas.toDataURL("image/png");
-                chat.server.sendCanvas(img);
+            $('#clear').bind("click",function () {
+                chat.server.clearImg();
             });
             $('#sendmessage').click(function () {
                 // Call the Send method on the hub.
                 if (!$('#diceroll').val()) {
                     roll = 0;
                     numdice = 0
+                }
+                else if (!$('#numdice').val()) {
+                    roll = $('#diceroll').val()
+                    numdice = 1;
                 }
                 else {
                     roll = $('#diceroll').val()
@@ -65,5 +71,7 @@
 <div id="right">
 @Html.Partial("_CSEPartial")
 </div>
+<debug></debug>
 
+<div id="list"></div>
 
