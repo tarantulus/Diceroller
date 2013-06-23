@@ -45,3 +45,11 @@ input {
     overflow-y:scroll;
     overflow-x:hidden;
 }
+
+.hero-unit {
+    background-color:#fff;
+}
+
+.hero-unit img {
+    width:50%;
+}
