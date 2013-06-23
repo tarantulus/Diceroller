@@ -151,7 +151,9 @@
     <Content Include="Content\css\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\css\jquery-ui-1.10.3.custom.css" />
     <Content Include="Content\css\jquery-ui-1.10.3.custom.min.css" />
+    <Content Include="Content\css\Site.css" />
     <Content Include="Content\css\spectrum.css" />
+    <Content Include="Content\js\hub.js" />
     <Content Include="Content\js\sketchPad.js" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

@@ -11,26 +11,25 @@
     <script src=@Url.Content("~/Scripts/spectrum.js")></script>
     <link href=@Url.Content("~/Content/css/spectrum.css") rel="stylesheet" />
     <link href=@Url.Content("~/Content/css/jquery-ui-1.10.3.custom.css") rel="stylesheet" />
-    <link href=@Url.Content("~/Content/Site.css") rel="stylesheet" />
+    <link href=@Url.Content("~/Content/css/Site.css") rel="stylesheet" />
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 </head>
 <body>
     <div class="page">
         <header>
-            <div id="logindisplay">
-                @Html.Partial("_LogOnPartial")
-            </div>
-            <nav>
-                <ul id="menu">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Sketchpad", "Sketchpad", "Home")</li>
-                </ul>
-            </nav>
+             <div class="topbar">
+      <div class="topbar-inner">
+        <div class="container-fluid">          
+          <p class="pull-right">Logged in as </p>
+        </div>
+      </div>
+    </div>
         </header>
         <section id="main">
             @RenderBody()
         </section>
         <footer>
+          <p>&copy; RHorsey 2013</p>
         </footer>
     </div>
 </body>

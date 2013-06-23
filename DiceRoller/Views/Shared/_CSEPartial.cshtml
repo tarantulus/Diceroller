@@ -1,4 +1,5 @@
-﻿<script>
+﻿<h2>SRD Search</h2>
+<script>
     $(function () {
         $("#dialog").dialog({
             autoOpen: false,
@@ -36,3 +37,8 @@
         </div>
 </div>
     <button id="opener">search SRD</button>
+
+<script>
+    $(".gsc - search - button").bind('click', storesearch(), false);
+    function storesearch() { alert("I searched!"); }
+</script>

@@ -1,0 +1,47 @@
+﻿.container-fluid > .sidebar {
+    position: relative;
+    top: 0;
+    left:auto;
+    width: 220px;
+}
+
+.left {
+    float:left;
+}
+
+.right {
+    float:right;
+}
+
+.container-fluid > .content {
+    margin: 0 240px;
+}
+
+input {
+    width: 10%;
+}
+
+#log {
+    width: 190px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height:600px;
+}
+
+#toolbar ul
+    {
+        width:500px;        
+    }
+    #toolbar li
+    {
+        list-style-type:none;
+        float:left;
+        margin:5px 10px 0px 0px;
+        
+    }
+
+#search {
+    max-height:400px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
