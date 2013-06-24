@@ -33,12 +33,14 @@
             s.parentNode.insertBefore(gcse, s);
         })();
 </script>
-<gcse:search></gcse:search>
+<gcse:search gname="storesearch"></gcse:search>
         </div>
 </div>
     <button id="opener">search SRD</button>
 
-<script>
-    $(".gsc - search - button").bind('click', storesearch(), false);
-    function storesearch() { alert("I searched!"); }
+<script type="text/javascript">
+    if (google != "undefined") {
+        var cseElement = google.search.cse.element.getElement('storesearch'),
+        query = cseElement.getInputQuery();
+    };
 </script>

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DiceRoller
 {
-    public class Log : List<KeyValuePair<string, string>>
+    public class Log : List<KeyValuePair<string, object>>
     {
         private static Log _instance;
 

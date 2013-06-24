@@ -17,10 +17,10 @@ namespace DiceRoller
         Helpers.HTMLhelper _htmlHelper = new Helpers.HTMLhelper();
         public void GetLog()
         {
-            foreach (KeyValuePair<string, string> entry in _log)
+            foreach (KeyValuePair<string, object> entry in _log)
             {
                 string name = entry.Key;
-                string msg = entry.Value;                
+                object msg = entry.Value;                
                 Clients.Caller.broadcastMessage(name, msg);
             }
             SendCanvas(_log.LastImg);
@@ -36,7 +36,7 @@ namespace DiceRoller
             }
             else
             {
-                _log.Add(new KeyValuePair<string,string>(name,msg));
+                _log.Add(new KeyValuePair<string,object>(name,msg));
                 Clients.All.broadcastMessage(name, msg);
             }
         }
@@ -53,12 +53,12 @@ namespace DiceRoller
                     string html =_htmlHelper.Roll2HTML(parsedRolls);
                     html = die + "<br/>" +html + "<br/><br/>";
                     string counter = (numRolls - i).ToString();
-                    Clients.All.broadcastMessage(counter,html);                    
-                    _log.Insert(0,new KeyValuePair<string, string>(counter,html));
+                    Clients.All.broadcastMessage(counter,parsedRolls);                    
+                    _log.Insert(0,new KeyValuePair<string, object>(counter,parsedRolls));
                 
             }
             Clients.All.broadcastMessage(name, msg);
-            _log.Add(new KeyValuePair<string, string>(name, msg));
+            _log.Add(new KeyValuePair<string, object>(name, msg));
             
         }
 

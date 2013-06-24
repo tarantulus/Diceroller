@@ -1,11 +1,11 @@
 ﻿$(function () {
-    // Declare a proxy to reference the hub. 
     var chat = $.connection.diceHub;
-    // Create a function that the hub can call to broadcast messages.
     chat.client.broadcastMessage = function (name, message) {
-        // Add the message to the page. 
-        $('#log').prepend('<li><strong>' + name
-            + '</strong>:&nbsp;&nbsp;' + message + '</li>');
+        var li = document.createElement('li');
+        li.innerHTML = '<strong>' + name
+            + '</strong>:&nbsp;&nbsp;' +
+            prettyPrint(message)
+        $('#log').prepend(li)
     };
 
     chat.client.broadcastImg = function (img) {
@@ -21,7 +21,9 @@
     };
 
     // Get the user name and store it to prepend to messages.
-    $('#displayname').val(prompt("Please enter your name"));
+    user = prompt("Please enter your name");
+    $('#user').append(user);
+    $('#displayname').val(user);
     // Set initial focus to message input box.  
     $('#message').focus();
     // Start the connection.
@@ -53,4 +55,24 @@
             $('#message').val('').focus();
         });
     });
+
+    function prettyPrint(data) {
+        var html = "";
+        if (data instanceof Array) {
+            var total = 0;
+            for (var i = 0; i < data[0].length; i++) {
+                total = total + data[0][i];
+                html = i == 0 ? html : html + (data[0][i] >= 0 ? "+ " : "- ");
+                html = html + Math.abs(data[0][i]);
+                if (data[1][i] > 0) {
+                    html = html + "<sub>[d" + data[1][i] + "]</sub> ";
+                }
+            }
+            html = "<strong>" + total + "</strong>" + "&nbsp;=&nbsp;" + html;
+        }
+        else {
+            html = data
+        }
+        return html;
+    }
 });
