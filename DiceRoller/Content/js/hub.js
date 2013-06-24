@@ -2,8 +2,8 @@
     var chat = $.connection.diceHub;
     chat.client.broadcastMessage = function (name, message) {
         var li = document.createElement('li');
-        li.innerHTML = '<strong>' + name
-            + '</strong>:&nbsp;&nbsp;' +
+        li.innerHTML = '<em>' + name
+            + '</em>:&nbsp;&nbsp;' +
             prettyPrint(message)
         $('#log').prepend(li)
     };
@@ -66,9 +66,9 @@
                 html = html + Math.abs(data[0][i]);
                 if (data[1][i] > 0) {
                     html = html + "<sub>[d" + data[1][i] + "]</sub> ";
-                }
+                }                
             }
-            html = "<strong>" + total + "</strong>" + "&nbsp;=&nbsp;" + html;
+            html = "<em>" + total + "</em>" + "&nbsp;=&nbsp;" + html;
         }
         else {
             html = data

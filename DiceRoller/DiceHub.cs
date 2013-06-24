@@ -45,18 +45,19 @@ namespace DiceRoller
         {
             Dice roller = new Dice(); 
             // Call the broadcastMessage method to update clients.
+            int runningTotal = 0;
             for (int i = 0; i < numRolls; i++)
             {
                     var parsedRolls = roller.Parse(die);
-
-                //ewwww! this whole block needs to be fixed! make it JSON!
-                    string html =_htmlHelper.Roll2HTML(parsedRolls);
-                    html = die + "<br/>" +html + "<br/><br/>";
+                    runningTotal = runningTotal + parsedRolls[0].Sum(); 
                     string counter = (numRolls - i).ToString();
                     Clients.All.broadcastMessage(counter,parsedRolls);                    
                     _log.Insert(0,new KeyValuePair<string, object>(counter,parsedRolls));
                 
             }
+            int avg = runningTotal / numRolls;
+            Clients.All.broadcastMessage("Avg", avg);
+            Clients.All.broadcastMessage("Sum", runningTotal);
             Clients.All.broadcastMessage(name, msg);
             _log.Add(new KeyValuePair<string, object>(name, msg));
             

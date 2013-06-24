@@ -53,3 +53,7 @@ input {
 .hero-unit img {
     width:50%;
 }
+
+em {
+    font-weight:bold;
+}
