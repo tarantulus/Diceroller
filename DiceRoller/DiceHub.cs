@@ -41,6 +41,15 @@ namespace DiceRoller
             }
         }
 
+        public void Send(string name, string msg)
+        {
+            // Call the broadcastMessage method to update clients.
+
+
+                _log.Add(new KeyValuePair<string, object>(name, msg));
+                Clients.All.broadcastMessage(name, msg);
+        }
+
         public void SendDie(string name, string msg, string die, int numRolls)
         {
             Dice roller = new Dice(); 

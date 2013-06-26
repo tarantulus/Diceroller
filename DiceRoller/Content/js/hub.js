@@ -39,8 +39,9 @@
         $('#sendmessage').click(function () {
             // Call the Send method on the hub.
             if (!$('#diceroll').val()) {
-                roll = 0;
-                numdice = 0
+                roll = "";
+                numdice = "";
+                chat.server.send($('#displayname').val(), $('#message').val());
             }
             else if (!$('#numdice').val()) {
                 roll = $('#diceroll').val()

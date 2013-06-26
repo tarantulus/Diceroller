@@ -36,8 +36,7 @@ input {
     {
         list-style-type:none;
         float:left;
-        margin:5px 10px 0px 0px;
-        
+        margin:5px 10px 0px 0px;             
     }
 
 #search {
@@ -46,6 +45,10 @@ input {
     overflow-x:hidden;
 }
 
+#canvasContainer {
+    position:relative;
+    z-index:3;
+}
 .hero-unit {
     background-color:#fff;
 }
