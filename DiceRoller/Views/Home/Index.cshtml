@@ -4,24 +4,43 @@
 <!--Add script to update the page and send messages.-->
 <script type="text/javascript" src="../../Content/js/hub.js"></script>
 
-    <div class="container-fluid">
-      <div class="sidebar left">
-        <div class="well">
-          @Html.Partial("_DieRollerPartial")
+<div class="container-fluid">
+
+    <div class="row-fluid">
+        <div class="span2">
+            <div class="sidebar left well">
+                <div>
+                    @Html.Partial("_DieRollerPartial")
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="sidebar right">
-        <div class="well">
-          @Html.Partial("_CSEPartial")
-        </div>
-      </div>
-      <div class="content">
-        <div class="hero-unit">
+
+        <div class="span7 offset1">
+            <div class="content">
+
+                <!--<div class="hero-unit">
           <img src="../../Content/themes/base/images/D&Dlogo_stacked.jpg" />
           <h1>Toolset</h1>          
+        </div>-->
+                <div>
+                    @Html.Partial("_SketchPadPartial")
+                </div>
+            </div>
         </div>
-          <div>
-        @Html.Partial("_SketchPadPartial")
+
+        <div class="span2">
+            <div class="sidebar right well">
+                <div>
+                    @Html.Partial("_CSEPartial")
+                    <div class="lead">
+                        <h5>Logged In Users: </h5>
+                        <ul id="users"></ul>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+
     </div>
+
+
+</div>

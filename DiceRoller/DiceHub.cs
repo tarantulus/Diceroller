@@ -6,6 +6,7 @@ using Microsoft.AspNet.SignalR;
 using System.Data;
 using System.Web.Script.Serialization;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 
 namespace DiceRoller
@@ -13,8 +14,37 @@ namespace DiceRoller
     
     public class DiceHub : Hub
     {
+        UserCollection users = UserCollection.Instance();
         Log _log = Log.Instance();
         Helpers.HTMLhelper _htmlHelper = new Helpers.HTMLhelper();
+
+        public override Task OnConnected()
+        {
+            if (!users.Where(user => user.ClientId == Context.ConnectionId).Any())
+            {
+                User thisUser = new User();
+                thisUser.ClientId = Context.ConnectionId;
+                users.Add(thisUser);
+            }
+            return base.OnConnected();
+        }
+
+        public override Task OnDisconnected()
+        {
+            if (users.Where(user => user.ClientId == Context.ConnectionId).Any())
+            {
+                users.RemoveAll(user => user.ClientId == Context.ConnectionId);
+            }
+            Clients.All.UpdateUsers(users);
+            return base.OnConnected();
+        }
+
+        public void SetName(string userName)
+        {
+            users.First(user => user.ClientId == Context.ConnectionId).Name=userName;
+            Clients.All.UpdateUsers(users);
+        }
+
         public void GetLog()
         {
             foreach (KeyValuePair<string, object> entry in _log)

@@ -2,7 +2,7 @@
     position: relative;
     top: 0;
     left:auto;
-    width: 220px;
+    min-width: 220px;
 }
 
 .left {
@@ -14,15 +14,27 @@
 }
 
 .container-fluid > .content {
-    margin: 0 240px;
+    padding-left: 300px;
 }
 
 input {
-    width: 10%;
+    min-width: 10%;
+}
+
+textarea {
+    min-width: 10%;
+}
+
+label {
+    min-width: 10%;
+}
+
+header {
+    margin-bottom:100px;
 }
 
 #log {
-    width: 190px;
+    min-width: 190px;
     overflow-y: scroll;
     overflow-x: hidden;
     max-height:600px;
@@ -30,7 +42,7 @@ input {
 
 #toolbar ul
     {
-        width:500px;        
+        min-width:500px;        
     }
     #toolbar li
     {
@@ -49,14 +61,43 @@ input {
     position:relative;
     z-index:3;
 }
+
+#users {
+    text-align:left;
+}
+
+#users li{
+    list-style:none;
+}
+
 .hero-unit {
     background-color:#fff;
 }
 
-.hero-unit img {
-    width:50%;
+.logo {
+    max-height:30px;
 }
 
 em {
     font-weight:bold;
+}
+
+.row {
+margin-left: 20px;
+}
+
+.pull-right {
+float: right;
+margin-right: 20px;
+}
+
+div.content {
+margin-left: -50px;
+}
+
+#toolbar li {
+    list-style-type: none;
+    float: left;
+    margin: 5px 10px 0px 0px;
+    cursor: pointer;
 }

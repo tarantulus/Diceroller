@@ -43,8 +43,8 @@ function onMouseMove(e) {
     var x, y;
 
     // Get the mouse position.
-    x = typeof e.offsetX !== 'undefined' ? e.offsetX : e.layerX;
-    y = typeof e.offsetY !== 'undefined' ? e.offsetY : e.layerY;
+    x = typeof e.offsetX !== 'undefined' ? e.offsetX : e.layerX - e.currentTarget.offsetLeft;
+    y = typeof e.offsetY !== 'undefined' ? e.offsetY : e.layerY - e.currentTarget.offsetTop;
     switch(currentTool)
     {
         case "pen":
@@ -100,7 +100,7 @@ function setColour(color) {
     context.beginPath();
 
     // Select the new color.
-    context.strokeStyle = color.toHex();
+    context.strokeStyle = "#"+color.toHex();
 }
 
 function setTool(tool) {

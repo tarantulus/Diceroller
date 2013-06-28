@@ -20,6 +20,10 @@
         context.clearRect(0, 0, canvas.width, canvas.height);
     };
 
+    chat.client.updateUsers = function (users) {
+        $('#users').get(0).innerHTML=getNames(users);
+    };
+
     // Get the user name and store it to prepend to messages.
     user = prompt("Please enter your name");
     $('#user').append(user);
@@ -28,6 +32,7 @@
     $('#message').focus();
     // Start the connection.
     $.connection.hub.start().done(function () {
+        chat.server.setName(user);
         chat.server.getLog();
         $('#sketchPad').mouseup(function () {
             var img = canvas.toDataURL("image/png");
@@ -76,4 +81,13 @@
         }
         return html;
     }
+
+    function getNames(obj) {
+        var out = '';
+        for (var i in obj) {
+            out += "<li>" + obj[i].Name + "</li>";
+        }
+        return out;
+    }
+        
 });

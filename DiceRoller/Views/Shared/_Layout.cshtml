@@ -2,7 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title</title>    
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href=@Url.Content("~/Content/bootstrap/css/bootstrap-responsive.css") rel="stylesheet">
     <link href=@Url.Content("~/Content/bootstrap/css/bootstrap.min.css") rel="stylesheet" type="text/css" />
     <script src=@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")></script>
     <script src=@Url.Content("~/Scripts/jquery-1.6.4.min.js")></script>
@@ -17,19 +19,21 @@
 <body>
     <div class="page">
         <header>
-             <div class="topbar">
-      <div class="topbar-inner">
-        <div class="container-fluid">          
-          <p class="pull-right" id="user">Logged in as </p>
-        </div>
-      </div>
-    </div>
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="row">
+                        <img src="../../Content/themes/base/images/D&Dlogo_stacked.jpg" class="brand logo" />
+                        <p class="brand">Toolset</p>
+                        <p class="pull-right lead" id="user">Logged in as </p>
+                    </div>
+                </div>
+            </div>
         </header>
         <section id="main">
             @RenderBody()
         </section>
         <footer>
-          <p>&copy; RHorsey 2013</p>
+            <p>&copy; RHorsey 2013</p>
         </footer>
     </div>
 </body>

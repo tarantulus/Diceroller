@@ -43,6 +43,7 @@ namespace DiceRoller
             List<List<Int32>> listList = new List<List<Int32>>();
 
             diestring = diestring.Replace("-","+ -");
+            diestring = diestring.Replace("%", "100");
             diestring = diestring.ToLower();
             var items = diestring.Split('+');
             var res = new List<int>();
