@@ -4,20 +4,22 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Text.RegularExpressions;
+using System.Net;
+using System.IO;
+using System.Text;
 
 namespace DiceRoller
 {
     public class Dice
     {
 
-        Random _rand = new Random();
-
         public List<Int32> Roll(int sides, int numRolls)
         {
             List<int> Rolls = new List<int>();
             for (int i = 0; i < numRolls; i++)
             {
-                Rolls.Add(_rand.Next(1, sides + 1));
+                var number = RandomProvider.GetThreadRandom().Next(1,sides + 1);
+                Rolls.Add(Int32.Parse(number.ToString()));
             }
             return Rolls;
         }

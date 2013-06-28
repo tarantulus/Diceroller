@@ -58,7 +58,7 @@
             }
             chat.server.send($('#displayname').val(), $('#message').val(), roll, numdice);
             // Clear text box and reset focus for next comment. 
-            $('#message').val('').focus();
+            $('#message').val('');
         });
     });
 
