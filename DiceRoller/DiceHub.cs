@@ -91,7 +91,7 @@ namespace DiceRoller
                     runningTotal = runningTotal + parsedRolls[0].Sum(); 
                     string counter = (numRolls - i).ToString();
                     Clients.All.broadcastMessage(counter,parsedRolls);                    
-                    _log.Insert(0,new KeyValuePair<string, object>(counter,parsedRolls));
+                    _log.Add(new KeyValuePair<string, object>(counter,parsedRolls));
                 
             }
             int avg = runningTotal / numRolls;

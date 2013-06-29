@@ -13,6 +13,16 @@ namespace DiceRoller
         {
         }
 
+        public new void Add(KeyValuePair<string, object> item)
+        {
+            if (Count > 100)
+            {
+                Remove(this[0]);
+            }
+
+            base.Add(item);
+        }
+
         public static Log Instance()
         {
             // Uses lazy initialization.
