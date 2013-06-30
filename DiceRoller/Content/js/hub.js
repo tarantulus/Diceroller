@@ -5,6 +5,7 @@
         li.innerHTML = '<em>' + name
             + '</em>:&nbsp;&nbsp;' +
             prettyPrint(message)
+        prune($('#log'));
         $('#log').prepend(li)
     };
 
@@ -21,7 +22,7 @@
     };
 
     chat.client.updateUsers = function (users) {
-        $('#users').get(0).innerHTML=getNames(users);
+        $('#users').get(0).innerHTML = getNames(users);
     };
 
     // Get the user name and store it to prepend to messages.
@@ -38,6 +39,7 @@
             var img = canvas.toDataURL("image/png");
             chat.server.sendCanvas(img);
         });
+
         $('#clear').bind("click", function () {
             chat.server.clearImg();
         });
@@ -72,7 +74,7 @@
                 html = html + Math.abs(data[0][i]);
                 if (data[1][i] > 0) {
                     html = html + "<sub>[d" + data[1][i] + "]</sub> ";
-                }                
+                }
             }
             html = "<em>" + total + "</em>" + "&nbsp;=&nbsp;" + html;
         }
@@ -89,5 +91,11 @@
         }
         return out;
     }
-        
+
+    function prune(node) {
+        chld = $(node).children();
+        if (chld.length > 100) {
+            $(node).empty();
+        }
+    }
 });
