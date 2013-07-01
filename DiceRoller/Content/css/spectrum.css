@@ -13,6 +13,15 @@ License: MIT
 user-select: none;
 }
 
+textarea{
+-webkit-touch-callout: all;
+-webkit-user-select: all;
+-khtml-user-select: all;
+-moz-user-select: all;
+-ms-user-select: all;
+user-select: all;
+}
+
 input{
 -webkit-touch-callout: all;
 -webkit-user-select: all;
