@@ -43,6 +43,11 @@
         $('#clear').bind("click", function () {
             chat.server.clearImg();
         });
+
+        $('#setInit').click(function () {
+            chat.server.setInit($('#diceroll').val());
+        });
+
         $('#sendmessage').click(function () {
             // Call the Send method on the hub.
             if (!$('#diceroll').val()) {
@@ -86,8 +91,9 @@
 
     function getNames(obj) {
         var out = '';
+        obj.sort(function (a, b) { return parseFloat(b.Init) - parseFloat(a.Init) });
         for (var i in obj) {
-            out += "<li>" + obj[i].Name + "</li>";
+            out += "<li>" + obj[i].Name + ":"+obj[i].Init+"</li>";
         }
         return out;
     }
