@@ -5,7 +5,7 @@
     },
 
     sendImg: function () {
-        var img = canvas.toDataURL("image/png");
+        var img = canvas.toDataURL("image/jpeg",0.2);
         this.hub.server.sendCanvas(img);
     },
 
