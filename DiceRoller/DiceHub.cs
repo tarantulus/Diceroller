@@ -129,6 +129,8 @@ namespace DiceRoller
             var result = roller.Parse(initRoll);
             currentUser.Init = result[0][0] + result[0][1];
             Clients.All.UpdateUsers(users);
+            Clients.All.broadcastMessage(currentUser.Name, "init - " + currentUser.Init);
+            _log.Add(new KeyValuePair<string, object>(currentUser.Name, "init - "+currentUser.Init));
             
         }
     }
