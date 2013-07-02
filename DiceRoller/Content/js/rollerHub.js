@@ -2,6 +2,7 @@
 
     init: function (hub) {
         this.hub = hub;
+        this.user = "";
     },
 
     sendMessage: function (request) {
@@ -18,16 +19,21 @@
             roll = request.roll
             numdice = request.numrolls
         }
-        this.hub.server.send(request.user, request.message, roll, numdice);        
+        this.hub.server.send(request.user, request.message, roll, numdice);
+        this.user = request.user;
     },
 
     getMessage: function (name, message, log) {
         var li = document.createElement('li');
-        li.innerHTML = '<em>' + name
+        li.innerHTML ='<em>' + name
             + '</em>:&nbsp;&nbsp;' +
-            prettyPrint(message)
-        prune(log);
+            helper.prettyPrint(message)
+        helper.prune(log);
         log.prepend(li)
+        if (name == this.user) {
+            log.prepend('<hr />')
+        }
+        
     }
 
 }

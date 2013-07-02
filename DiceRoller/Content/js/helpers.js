@@ -25,7 +25,7 @@
         var out = '';
         obj.sort(function (a, b) { return parseFloat(b.Init) - parseFloat(a.Init) });
         for (var i in obj) {
-            out += "<li>" + obj[i].Name + ":" + obj[i].Init + "</li>";
+            out += "<li><p>" + obj[i].Name + ":" + obj[i].Init + "</p></li>";
         }
         return out;
     },

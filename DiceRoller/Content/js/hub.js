@@ -1,7 +1,7 @@
 ﻿$(function () {
     var diceroller = $.connection.diceHub;
-    diceroller.client.broadcastMessage = function (name, message) {
-        rollerHub.getMsg(name, message, $('#log'));
+    diceroller.client.broadcastMessage = function (label, message) {
+        rollerHub.getMessage(label, message, $('#log'));
     };
 
     diceroller.client.broadcastImg = function (img) {
@@ -30,12 +30,6 @@
         diceroller.server.setName(user);
         diceroller.server.getLog();
 
-        var request = {
-            roll: $('#diceroll').val(),
-            message: $('#message').val(),
-            numrolls: $('#numdice').val(),
-            user: $('#displayname').val()         
-        }
         $('#message').val('');
         $('#sketchPad').mouseup(function () {
             sketchHub.sendImg();
@@ -50,6 +44,12 @@
         });
 
         $('#sendmessage').click(function () {
+            var request = {
+                roll: $('#diceroll').val(),
+                message: $('#message').val(),
+                numrolls: $('#numdice').val(),
+                user: $('#displayname').val()
+            }
             rollerHub.sendMessage(request);
         });
     });    
