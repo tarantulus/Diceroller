@@ -9,7 +9,7 @@
     };
 
     diceroller.client.clearImg = function () {
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        sketchHub.doClear();
     };
 
     diceroller.client.updateUsers = function (users) {

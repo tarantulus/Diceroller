@@ -5,12 +5,17 @@
     },
 
     sendImg: function () {
-        var img = canvas.toDataURL("image/jpeg",0.2);
+        var img = canvas.toDataURL("image/jpeg",0.5);
         this.hub.server.sendCanvas(img);
     },
 
     clearImg: function () {
         this.hub.server.clearImg();
+    },
+
+    doClear: function () {
+        context.fillStyle = "#fff";
+        context.fillRect(0, 0, canvas.width, canvas.height);
     },
 
     getImg: function (img) {
