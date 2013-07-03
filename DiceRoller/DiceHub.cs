@@ -120,6 +120,11 @@ namespace DiceRoller
             User currentUser = users.Where(user => user.ClientId == Context.ConnectionId).First();
             Clients.All.userIsDrawing(currentUser.Name);
         }
+        public void userStoppedDrawing()
+        {
+            User currentUser = users.Where(user => user.ClientId == Context.ConnectionId).First();
+            Clients.All.userStoppedDrawing(currentUser.Name);
+        }
 
         public void setInit(int mod)
         {

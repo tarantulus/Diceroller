@@ -16,6 +16,13 @@
         userHub.setNames(users, $('#users').get(0))
     };
 
+    diceroller.client.userIsDrawing = function (user) {
+        sketchHub.startDraw($('#notify'),user);
+    };
+
+    diceroller.client.userStoppedDrawing = function (user) {
+        sketchHub.EndDraw(user);
+    };
     // Get the user name and store it to prepend to messages.
     user = prompt("Please enter your name");
     $('#user').append(user);
@@ -31,8 +38,12 @@
         diceroller.server.getLog();
 
         $('#message').val('');
+        $('#sketchPad').mousedown(function () {
+            sketchHub.notifyDraw();
+        });
         $('#sketchPad').mouseup(function () {
             sketchHub.sendImg();
+            sketchHub.notifyEndDraw();
         });
 
         $('#clear').bind("click", function () {

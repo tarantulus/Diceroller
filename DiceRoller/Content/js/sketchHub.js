@@ -19,8 +19,25 @@
         imageObj.onload = function () {
             context.drawImage(this, 0, 0);
         };
+    },
+
+    notifyDraw: function () {
+        this.hub.server.userIsDrawing()
+    },
+
+    startDraw: function (elem, user) {
+        var li = document.createElement('li');
+        li.innerHTML = user + " is drawing";
+        li.className = user;
+        elem.append(li)
+    },
+
+    notifyEndDraw: function () {
+        this.hub.server.userStoppedDrawing()
+    },
+
+    EndDraw: function (user) {
+        $('.' + user).remove();
     }
-
-
 
 }
