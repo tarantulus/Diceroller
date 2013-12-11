@@ -23,17 +23,20 @@
     diceroller.client.userStoppedDrawing = function (user) {
         sketchHub.EndDraw(user);
     };
-    // Get the user name and store it to prepend to messages.
-    user = prompt("Please enter your name");
-    $('#user').append(user);
-    $('#displayname').val(user);
-    // Set initial focus to message input box.  
-    $('#message').focus();
     // Start the connection.
     $.connection.hub.start().done(function () {
         sketchHub.init(diceroller);
         rollerHub.init(diceroller);
         userHub.init(diceroller);
+        // Get the user name and store it to prepend to messages.
+        if (diceroller.server.isLoggedIn()) {
+            user = prompt("Please enter your name");
+        }
+        else user = diceroller.server.getName();
+        $('#user').append(user);
+        $('#displayname').val(user);
+        // Set initial focus to message input box.  
+        $('#message').focus();
         diceroller.server.setName(user);
         diceroller.server.getLog();
 
@@ -62,6 +65,9 @@
                 user: $('#displayname').val()
             }
             rollerHub.sendMessage(request);
+        });
+        $('#makeRoom').click(function () {
+            diceroller.server.createRoom("dave", "");
         });
     });    
 });

@@ -7,6 +7,7 @@ using System.Data;
 using System.Web.Script.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web.SessionState;
 
 
 namespace DiceRoller
@@ -14,10 +15,18 @@ namespace DiceRoller
     
     public class DiceHub : Hub
     {
+        #region setup
+
         UserCollection users = UserCollection.Instance();
         Log _log = Log.Instance();
         Helpers.HTMLhelper _htmlHelper = new Helpers.HTMLhelper();
-        
+        static HttpSessionState session = HttpContext.Current.Session;
+        public bool IsLoggedIn { get; set; }        
+
+        #endregion
+
+        #region ConnectionActions
+
         public override Task OnConnected()
         {
             if (!users.Where(user => user.ClientId == Context.ConnectionId).Any())
@@ -41,10 +50,20 @@ namespace DiceRoller
             return base.OnConnected();
         }
 
+        #endregion
+
+
+        #region prepActions
+
         public void SetName(string userName)
         {
-            users.First(user => user.ClientId == Context.ConnectionId).Name=userName;
+            users.First(user => user.ClientId == Context.ConnectionId).Name=userName;            
             Clients.All.UpdateUsers(users);
+        }
+
+        public string GetName()
+        {
+            return users.First(user => user.ClientId == Context.ConnectionId).Name;
         }
 
         public void GetLog()
@@ -57,6 +76,37 @@ namespace DiceRoller
             }
             SendCanvas(_log.LastImg);
         }
+
+        #endregion 
+
+        #region userMethods
+
+        public void CreateRoom(string name, string password)
+        {
+            string roomId = Guid.NewGuid().ToString();
+            Classes.Room room = new Classes.Room(roomId,name,password);
+            DataStore store = new DataLayer.JsonStore("rooms");
+            Groups.Add(Context.ConnectionId, roomId.ToString());
+            if (!store.Exists()){
+            store.Create();            
+            }
+            store.Update(room);
+        }
+
+        public void JoinRoom(string id)
+        {
+            DataStore store = new DataLayer.JsonStore("rooms");
+            store.GetData(typeof(Classes.RoomCollection));
+        }
+
+        public bool isLoggedIn()
+        {
+            return IsLoggedIn;
+        }
+
+        #endregion
+
+        #region Send/Set Methods
 
         public void Send(string name, string msg, string die, int rolls)
         {
@@ -136,7 +186,9 @@ namespace DiceRoller
             Clients.All.UpdateUsers(users);
             Clients.All.broadcastMessage(currentUser.Name, "init - " + currentUser.Init);
             _log.Add(new KeyValuePair<string, object>(currentUser.Name, "init - "+currentUser.Init));
-            
+
         }
+
+        #endregion
     }
 }
