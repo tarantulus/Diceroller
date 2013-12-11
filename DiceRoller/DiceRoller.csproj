@@ -119,6 +119,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataLayer\JSON.cs" />
+    <Compile Include="Hubs\CanvasHub.cs" />
+    <Compile Include="Hubs\ChatHub.cs" />
+    <Compile Include="Hubs\UserHub.cs" />
     <Compile Include="Interfaces\DataStore.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="DiceHub.cs" />
@@ -166,6 +169,7 @@
     <Content Include="Content\js\rollerHub.js" />
     <Content Include="Content\js\sketchHub.js" />
     <Content Include="Content\js\sketchPad.js" />
+    <Content Include="Content\js\ui.js" />
     <Content Include="Content\js\userHub.js" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -273,6 +277,7 @@
     <Content Include="Views\Shared\_CSEPartial.cshtml" />
     <Content Include="Views\Shared\_UserPartial.cshtml" />
     <Content Include="Views\Shared\_XpTablePartial.cshtml" />
+    <Content Include="Views\Shared\_IconsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

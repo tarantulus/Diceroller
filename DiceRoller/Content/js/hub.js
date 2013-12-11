@@ -29,10 +29,7 @@
         rollerHub.init(diceroller);
         userHub.init(diceroller);
         // Get the user name and store it to prepend to messages.
-        if (diceroller.server.isLoggedIn()) {
-            user = prompt("Please enter your name");
-        }
-        else user = diceroller.server.getName();
+        user = prompt("Please enter your name");
         $('#user').append(user);
         $('#displayname').val(user);
         // Set initial focus to message input box.  
