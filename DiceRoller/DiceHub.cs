@@ -16,33 +16,30 @@ namespace DiceRoller
     {
         #region setup
 
-        Log _log = Log.Instance();
+        private Log _log = Log.Instance();
         Helpers.HTMLhelper _htmlHelper = new Helpers.HTMLhelper();
         static HttpSessionState session = HttpContext.Current.Session;
-        private ChatHub chatHub = new ChatHub();
-        private CanvasHub canvasHub = new CanvasHub();        
-        private UserHub userHub = new UserHub();
-      
-
+        private ChatHub chatHub = ChatHub.Instance();
+        private CanvasHub canvasHub = CanvasHub.Instance();        
+        private UserHub userHub = UserHub.Instance();
         #endregion
 
         #region ConnectionActions
-
         public override Task OnConnected()
         {
-            userHub.ConnectionId = Context.ConnectionId;
-            userHub.Login();
+            userHub.Login(Context.ConnectionId);
             Clients.Caller.clearImg();
             return base.OnConnected();
         }
 
         public override Task OnDisconnected()
         {
-            userHub.Logout();
+            userHub.Logout(Context.ConnectionId);
             userHub.UpdateUsers();
-            return base.OnConnected();
+            return base.OnDisconnected();
         }
-
+        
+        
         #endregion
 
 
@@ -50,13 +47,13 @@ namespace DiceRoller
 
         public void SetName(string userName)
         {
-            userHub.CurrentUser.Name=userName;            
+            userHub.SetName(userName, Context.ConnectionId);            
             userHub.UpdateUsers();
         }
 
         public string GetName()
         {
-            return userHub.CurrentUser.Name;
+            return Clients.Caller.userName;
         }
 
         public void GetLog()
@@ -131,14 +128,14 @@ namespace DiceRoller
 
         public void userIsDrawing()
         {
-            canvasHub.userIsDrawing(userHub.CurrentUser.Name);
+            canvasHub.userIsDrawing(Clients.Caller.userName);
         }
         public void userStoppedDrawing()
         {
-            canvasHub.userStoppedDrawing(userHub.CurrentUser.Name);
+            canvasHub.userStoppedDrawing(Clients.Caller.userName);
         }
 
-        public void SendCanvas(string img)
+        public void SendCanvas(object img)
         {
             _log.LastImg = img;
             canvasHub.SendCanvas(img);
@@ -154,10 +151,10 @@ namespace DiceRoller
             Dice roller = new Dice();
             string initRoll = "1d20+" + mod;
             var result = roller.Parse(initRoll);
-            userHub.CurrentUser.Init = result[0][0] + result[0][1];
+            userHub.CurrentUser(Context.ConnectionId).Init = result[0][0] + result[0][1];
             userHub.UpdateUsers();
-            Clients.All.broadcastMessage(userHub.CurrentUser.Name, "init - " + userHub.CurrentUser.Init);
-            _log.Add(new KeyValuePair<string, object>(userHub.CurrentUser.Name, "init - " + userHub.CurrentUser.Init));
+            Clients.All.broadcastMessage(Clients.Caller.userName, "init - " + userHub.CurrentUser(Context.ConnectionId).Init);
+            _log.Add(new KeyValuePair<string, object>(Clients.Caller.userName, "init - " + userHub.CurrentUser(Context.ConnectionId).Init));
 
         }
 

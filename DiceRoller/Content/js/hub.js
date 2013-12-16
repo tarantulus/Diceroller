@@ -13,7 +13,7 @@
     };
 
     diceroller.client.updateUsers = function (users) {
-        userHub.setNames(users, $('#users').get(0))
+        userHub.setNames(users, $('#userList').get(0))
     };
 
     diceroller.client.userIsDrawing = function (user) {
@@ -25,11 +25,14 @@
     };
     // Start the connection.
     $.connection.hub.start().done(function () {
-        sketchHub.init(diceroller);
+        canvas = $("#sketchPad").get(0);
+        context = canvas.getContext('2d');
+        sketchHub.init(diceroller, context, canvas);
         rollerHub.init(diceroller);
         userHub.init(diceroller);
         // Get the user name and store it to prepend to messages.
         user = prompt("Please enter your name");
+        diceroller.state.userName = user;
         $('#user').append(user);
         $('#displayname').val(user);
         // Set initial focus to message input box.  
@@ -38,13 +41,13 @@
         diceroller.server.getLog();
 
         $('#message').val('');
-        $('#sketchPad').mousedown(function () {
+        $('#sketchPad').bind("mousedown",(function () {
             sketchHub.notifyDraw();
-        });
-        $('#sketchPad').mouseup(function () {
+        }));
+        $('#sketchPad').bind("mouseup",(function () {
             sketchHub.sendImg();
             sketchHub.notifyEndDraw();
-        });
+        }));
 
         $('#clear').bind("click", function () {
             sketchHub.clearImg();

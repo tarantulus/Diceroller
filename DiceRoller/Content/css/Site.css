@@ -1,4 +1,9 @@
-﻿.container-fluid > .sidebar {
+﻿hr {
+    margin:5px;
+    border-color:grey;
+}
+
+.container-fluid > .sidebar {
     position: relative;
     top: 0;
     left:auto;
@@ -63,7 +68,7 @@ header {
 
 #canvasContainer {
     position:relative;
-    z-index:-3;
+    z-index:3;
     width:auto;
 }
 
@@ -116,4 +121,12 @@ margin-left: -50px;
     cursor: pointer;
     margin-top:15px;
     width:20px;
+}
+
+/* responsive css */
+
+@media screen and (max-width: 1350px) {
+    .content {
+        display:none;
+    }
 }

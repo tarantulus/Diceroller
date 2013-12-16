@@ -8,10 +8,23 @@ namespace DiceRoller.Hubs
 {
     public class CanvasHub
     {
+        private static CanvasHub _instance;
+        public static CanvasHub Instance()
+        {
+            // Uses lazy initialization.
+            // Note: this is not thread safe.
+            if (_instance == null)
+            {
+                _instance = new CanvasHub();
+            }
+
+            return _instance;
+        }
+
         IHubContext _context = GlobalHost.ConnectionManager.GetHubContext<DiceHub>();
 
-        public void SendCanvas(string img)
-        {            
+        public void SendCanvas(object img)
+        {   if (img != null)         
             _context.Clients.All.broadcastImg(img);
         }
 

@@ -6,6 +6,7 @@
 
 $(function () {
     $("#dice").click(function () {
+        $(".dicewell").toggle(200);
         $(".dicewell").parent().toggle(200);
     })
 })

@@ -35,6 +35,6 @@ namespace DiceRoller
             return _instance;
         }
 
-        public string LastImg { get; set; }
+        public object LastImg { get; set; }
     }
 }
