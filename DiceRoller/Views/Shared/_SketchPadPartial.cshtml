@@ -12,12 +12,6 @@
     <li id="clear">CLEAR ALL</li>
 </ul>
 <input type='text' id="colourPicker" value="#000" />
-<script type="text/javascript">
-    $("#colourPicker").spectrum({
-        change: setColour,
-        clickoutFiresChange: true
-    });
-</script>
         <select id="size">
             <option>1</option>
             <option>2</option>
@@ -38,5 +32,5 @@
     </canvas>
 </div>
 <script type="text/javascript">
-    sketchHub.doClear();
+    $(function(){sketchHub.doClear();})
 </script>

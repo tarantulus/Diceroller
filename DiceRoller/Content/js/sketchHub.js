@@ -1,48 +1,58 @@
-﻿var sketchHub = {
+﻿$(function () {
+    sketchHub = {
+        init: function (hub, context, canvas) {
+            this.hub = hub;
+            this.context = context;
+            this.canvas = canvas;
+        },
 
-    init: function (hub) {
-        this.hub = hub;
-    },
+        sendImg: function () {
+            var img = this.canvas.toDataURL("image/jpeg", 0.5);
+            var imgobj = {
+                image: img,
+                w: this.canvas.width,
+                h: this.canvas.height
+            }
+            this.hub.server.sendCanvas(imgobj);
+        },
 
-    sendImg: function () {
-        var img = canvas.toDataURL("image/jpeg",0.5);
-        this.hub.server.sendCanvas(img);
-    },
+        clearImg: function () {
+            this.hub.server.clearImg();
+        },
 
-    clearImg: function () {
-        this.hub.server.clearImg();
-    },
+        doClear: function () {
+            context.fillStyle = "#fff";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+        },
 
-    doClear: function () {
-        context.fillStyle = "#fff";
-        context.fillRect(0, 0, canvas.width, canvas.height);
-    },
+        getImg: function (img) {
+                var imageObj = new Image();
+                imageObj.src = img.image;
+                imageObj.onload = function () {
+                    sketchHub.context.scale(sketchHub.canvas.width / img.w, sketchHub.canvas.height / img.h);
+                    sketchHub.context.drawImage(imageObj, 0, 0);
+                };            
+        },
 
-    getImg: function (img) {
-        var imageObj = new Image();
-        imageObj.src = img;
-        imageObj.onload = function () {
-            context.drawImage(this, 0, 0);
-        };
-    },
+        notifyDraw: function () {
+            this.hub.server.userIsDrawing()
+        },
 
-    notifyDraw: function () {
-        this.hub.server.userIsDrawing()
-    },
+        startDraw: function (elem, user) {
+            var li = document.createElement('li');
+            li.innerHTML = user + " is drawing";
+            li.className = user;
+            elem.append(li)
+        },
 
-    startDraw: function (elem, user) {
-        var li = document.createElement('li');
-        li.innerHTML = user + " is drawing";
-        li.className = user;
-        elem.append(li)
-    },
+        notifyEndDraw: function () {
+            this.hub.server.userStoppedDrawing()
+        },
 
-    notifyEndDraw: function () {
-        this.hub.server.userStoppedDrawing()
-    },
+        EndDraw: function (user) {
+            $('.' + user).remove();
+        }
 
-    EndDraw: function (user) {
-        $('.' + user).remove();
     }
-
 }
+)

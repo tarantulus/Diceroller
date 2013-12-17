@@ -7,44 +7,53 @@ using System.Data;
 using System.Web.Script.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
-
+using System.Web.SessionState;
+using DiceRoller.Hubs;
 namespace DiceRoller
 {
     
     public class DiceHub : Hub
     {
-        UserCollection users = UserCollection.Instance();
-        Log _log = Log.Instance();
+        #region setup
+
+        private Log _log = Log.Instance();
         Helpers.HTMLhelper _htmlHelper = new Helpers.HTMLhelper();
-        
+        static HttpSessionState session = HttpContext.Current.Session;
+        private ChatHub chatHub = ChatHub.Instance();
+        private CanvasHub canvasHub = CanvasHub.Instance();        
+        private UserHub userHub = UserHub.Instance();
+        #endregion
+
+        #region ConnectionActions
         public override Task OnConnected()
         {
-            if (!users.Where(user => user.ClientId == Context.ConnectionId).Any())
-            {
-                User thisUser = new User();
-                thisUser.ClientId = Context.ConnectionId;
-                users.Add(thisUser);
-                User currentUser = thisUser;
-            }
+            userHub.Login(Context.ConnectionId);
             Clients.Caller.clearImg();
             return base.OnConnected();
         }
 
         public override Task OnDisconnected()
         {
-            if (users.Where(user => user.ClientId == Context.ConnectionId).Any())
-            {
-                users.RemoveAll(user => user.ClientId == Context.ConnectionId);
-            }
-            Clients.All.UpdateUsers(users);
-            return base.OnConnected();
+            userHub.Logout(Context.ConnectionId);
+            userHub.UpdateUsers();
+            return base.OnDisconnected();
         }
+        
+        
+        #endregion
+
+
+        #region prepActions
 
         public void SetName(string userName)
         {
-            users.First(user => user.ClientId == Context.ConnectionId).Name=userName;
-            Clients.All.UpdateUsers(users);
+            userHub.SetName(userName, Context.ConnectionId);            
+            userHub.UpdateUsers();
+        }
+
+        public string GetName()
+        {
+            return Clients.Caller.userName;
         }
 
         public void GetLog()
@@ -58,29 +67,42 @@ namespace DiceRoller
             SendCanvas(_log.LastImg);
         }
 
+        #endregion 
+
+        #region userMethods
+
+        public void CreateRoom(string name, string password)
+        {
+            string roomId = Guid.NewGuid().ToString();
+            Classes.Room room = new Classes.Room(roomId,name,password);
+            DataStore store = new DataLayer.JsonStore("rooms");
+            Groups.Add(Context.ConnectionId, roomId.ToString());
+            if (!store.Exists()){
+            store.Create();            
+            }
+            store.Update(room);
+        }
+
+        public void JoinRoom(string id)
+        {
+            DataStore store = new DataLayer.JsonStore("rooms");
+            store.GetData(typeof(Classes.RoomCollection));
+        }
+
+        #endregion
+
+        #region Send/Set Methods
+
         public void Send(string name, string msg, string die, int rolls)
         {
-            // Call the broadcastMessage method to update clients.
-
-            if (!string.IsNullOrEmpty(die))
-            {
-                SendDie(name, msg, die, rolls);                
-            }
-            else
-            {
-                _log.Add(new KeyValuePair<string,object>(name,msg));
-                Clients.All.broadcastMessage(name, msg);
-            }
+                SendDie(name, msg, die, rolls);            
         }
-
         public void Send(string name, string msg)
         {
-            // Call the broadcastMessage method to update clients.
-
-
-                _log.Add(new KeyValuePair<string, object>(name, msg));
-                Clients.All.broadcastMessage(name, msg);
+            chatHub.Send(name, msg);
+            _log.Add(new KeyValuePair<string, object>(name, msg));
         }
+
 
         public void SendDie(string name, string msg, string die, int numRolls)
         {
@@ -104,39 +126,38 @@ namespace DiceRoller
             
         }
 
-        public void SendCanvas(string img)
+        public void userIsDrawing()
+        {
+            canvasHub.userIsDrawing(Clients.Caller.userName);
+        }
+        public void userStoppedDrawing()
+        {
+            canvasHub.userStoppedDrawing(Clients.Caller.userName);
+        }
+
+        public void SendCanvas(object img)
         {
             _log.LastImg = img;
-            Clients.All.broadcastImg(img);
+            canvasHub.SendCanvas(img);
         }
 
         public void ClearImg()
         {
-           Clients.All.clearImg();
-        }
-
-        public void userIsDrawing()
-        {
-            User currentUser = users.Where(user => user.ClientId == Context.ConnectionId).First();
-            Clients.All.userIsDrawing(currentUser.Name);
-        }
-        public void userStoppedDrawing()
-        {
-            User currentUser = users.Where(user => user.ClientId == Context.ConnectionId).First();
-            Clients.All.userStoppedDrawing(currentUser.Name);
+            canvasHub.ClearImg();
         }
 
         public void setInit(int mod)
         {
-            User currentUser = users.Where(user => user.ClientId == Context.ConnectionId).First();
             Dice roller = new Dice();
             string initRoll = "1d20+" + mod;
             var result = roller.Parse(initRoll);
-            currentUser.Init = result[0][0] + result[0][1];
-            Clients.All.UpdateUsers(users);
-            Clients.All.broadcastMessage(currentUser.Name, "init - " + currentUser.Init);
-            _log.Add(new KeyValuePair<string, object>(currentUser.Name, "init - "+currentUser.Init));
-            
+            userHub.CurrentUser(Context.ConnectionId).Init = result[0][0] + result[0][1];
+            userHub.UpdateUsers();
+            Clients.All.broadcastMessage(Clients.Caller.userName, "init - " + userHub.CurrentUser(Context.ConnectionId).Init);
+            _log.Add(new KeyValuePair<string, object>(Clients.Caller.userName, "init - " + userHub.CurrentUser(Context.ConnectionId).Init));
+
         }
+
+        #endregion
     }
 }

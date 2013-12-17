@@ -33,7 +33,7 @@
     prune: function (node) {
         chld = $(node).children();
         if (chld.length > 100) {
-            $(node).empty();
+            $(node).slice(100).remove();
         }
     }
 
