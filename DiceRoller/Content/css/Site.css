@@ -71,6 +71,10 @@ header {
     z-index:3;
     width:auto;
 }
+#user
+{
+    width:80%;
+}
 
 #users {
     text-align:left;
