@@ -168,7 +168,9 @@
     <Content Include="Content\js\helpers.js" />
     <Content Include="Content\js\rollerHub.js" />
     <Content Include="Content\js\sketchHub.js" />
+    <None Include="Content\js\sketchPad.js.old" />
     <Content Include="Content\js\sketchPad.js" />
+    <Content Include="Content\js\trsanders-responsive-sketchpad\responsive-sketchpad.js" />
     <Content Include="Content\js\ui.js" />
     <Content Include="Content\js\userHub.js" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -235,6 +237,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
+    <Content Include="Content\js\trsanders-responsive-sketchpad\LICENSE" />
+    <Content Include="Content\js\trsanders-responsive-sketchpad\README.md" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
@@ -278,6 +282,7 @@
     <Content Include="Views\Shared\_UserPartial.cshtml" />
     <Content Include="Views\Shared\_XpTablePartial.cshtml" />
     <Content Include="Views\Shared\_IconsPartial.cshtml" />
+    <Content Include="Views\Shared\_ResponsiveSketchPadPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

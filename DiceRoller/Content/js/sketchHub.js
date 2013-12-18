@@ -7,13 +7,7 @@
         },
 
         sendImg: function () {
-            var img = this.canvas.toDataURL("image/jpeg", 0.5);
-            var imgobj = {
-                image: img,
-                w: this.canvas.width,
-                h: this.canvas.height
-            }
-            this.hub.server.sendCanvas(imgobj);
+            this.hub.server.sendCanvas(sketchpad.json());
         },
 
         clearImg: function () {
@@ -25,13 +19,8 @@
             context.fillRect(0, 0, canvas.width, canvas.height);
         },
 
-        getImg: function (img) {
-                var imageObj = new Image();
-                imageObj.src = img.image;
-                imageObj.onload = function () {
-                    sketchHub.context.scale(sketchHub.canvas.width / img.w, sketchHub.canvas.height / img.h);
-                    sketchHub.context.drawImage(imageObj, 0, 0);
-                };            
+        getImg: function (img) {            
+            sketchpad.jsonLoad(img);
         },
 
         notifyDraw: function () {
