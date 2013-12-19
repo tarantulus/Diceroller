@@ -1,14 +1,40 @@
 ﻿<h2>Xp table</h2>
-<table>
-    <tr>
-        <td>
-            <div contenteditable>I'm editable</div>
-        </td>
-        <td>
-            <div contenteditable>I'm also editable</div>
-        </td>
-    </tr>
-    <tr>
-        <td>I'm not editable</td>
-    </tr>
-</table>
+<div id="xpTable">
+</div>
+
+<script type="text/javascript">
+    var xp = {
+        data:[{desc:'UPTO05Aug2013',xp:16400},
+             {desc:'09Aug2013',xp:1150},
+             {desc:'16Aug2013',xp:4800},
+             {desc:'23Aug2013',xp:4200},
+             {desc:'30Aug2013',xp:4666},
+             {desc:'06-Sep-2013 (=50% afk xp)',xp:1833},
+             {desc:'13Sep2013',xp:1100},
+             {desc:'27Sep2013',xp:1000},
+             {desc:'04Oct2013',xp:1300},
+             {desc:'Dragon negiotiations',xp:1650},
+             {desc:'Atropus\'s feeder stopper',xp:5000},
+             {desc:'missed session',xp:2500},
+             {desc:'Beholder missed session',xp:7250},
+             {desc:'Black dragon',xp:3800}]
+    }
+
+    var data = xp.data;
+    var $table = $("<table></table>");
+    var $line = $("<tr></tr>");
+    $line.append($("<th></th>").html('<h4>DESC/DATE</h4>'));
+    $line.append($("<th></th>").html('<h4>XP</h4>'));
+    $table.append($line);
+    for (var i in data) {
+        var xpdesc = data[i].desc;
+        var xpval = data[i].xp;
+        var $line = $("<tr></tr>");
+        $line.append($("<td></td>").html(xpdesc));
+        $line.append($("<td></td>").html(xpval));
+        $table.append($line);
+    }
+    $table.appendTo($("#xpTable"));
+
+    
+</script>

@@ -30,8 +30,9 @@
         startDraw: function (elem, user) {
             var li = document.createElement('li');
             li.innerHTML = user + " is drawing";
-            li.className = user;
+            li.className = user + ' ' + 'notifyuser';
             elem.append(li)
+            $(li).page();
         },
 
         notifyEndDraw: function () {

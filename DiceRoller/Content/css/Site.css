@@ -88,6 +88,10 @@ header {
     list-style:none;
 }
 
+#notify, .notifyuser {
+display:inline;
+}
+
 .hero-unit {
     background-color:#fff;
 }
