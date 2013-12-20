@@ -3,6 +3,10 @@
     border-color:grey;
 }
 
+input[type=text] {
+    max-width: 165px;
+}
+
 .container-fluid > .sidebar {
     position: relative;
     top: 0;
@@ -84,6 +88,10 @@ header {
     list-style:none;
 }
 
+#notify, .notifyuser {
+display:inline;
+}
+
 .hero-unit {
     background-color:#fff;
 }
@@ -103,10 +111,6 @@ margin-left: 20px;
 .pull-right {
 float: right;
 margin-right: 20px;
-}
-
-div.content {
-margin-left: -50px;
 }
 
 #toolbar li {
@@ -129,8 +133,8 @@ margin-left: -50px;
 
 /* responsive css */
 
-@media screen and (max-width: 1350px) {
-    .content {
+   /*@media screen and (max-width: 1350px) {
+ .content {
         display:none;
     }
-}
+}*/
