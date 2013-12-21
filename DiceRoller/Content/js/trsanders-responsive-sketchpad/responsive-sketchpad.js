@@ -15,7 +15,7 @@ $.fn.sketchpad = function(options) {
 
     // Default Context
     var lineColor = 'black';
-    var lineSize = 20;
+    var lineSize = 1;
     var lineCap = 'round';
     var lineJoin = 'round';
     var lineMiterLimit = 10;
