@@ -32,6 +32,7 @@ input {
 
 textarea {
     min-width: 10%;
+    resize:vertical;
 }
 
 canvas {

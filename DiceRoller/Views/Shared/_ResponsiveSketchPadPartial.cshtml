@@ -5,16 +5,10 @@
     <h2>Sketchpad</h2>
 <input type='text' id="colourPicker" value="#000" />
         <select id="size">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
+            @for (int i=1; i < 30; i++)
+            {
+                <option>@i</option>
+            }
         </select>
         <ul id="notify"></ul>
         <br />
@@ -28,4 +22,5 @@
         backgroundColor: '#FFFFFF',      // (Optional) Set the background of the canvas
         strokes: 'JSON',                // (Optional) Initialize the sketchpad with stroke data
     });
+    sketchpad.setLineSize('1');
 </script>
