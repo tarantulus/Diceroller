@@ -9,11 +9,22 @@
             hide: {
                 effect: "blind",
                 duration: 500
-            }
+            },
+            closeOnEscape: true
         });
 
-        $("#opener").click(function () {
-            $("#dialog").dialog("open");
+        $("#opener").click(
+            function(e){
+                if (
+                 jQuery('#dialog').dialog('isOpen')
+                 && !jQuery(e.target).is('.ui-dialog, a')
+                 && !jQuery(e.target).closest('.ui-dialog').length
+                ) {
+                    jQuery('#dialog').dialog('close');
+                }
+                else {
+                    $("#dialog").dialog("open");
+                }
         });
     });
   </script>

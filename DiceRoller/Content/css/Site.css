@@ -131,6 +131,10 @@ margin-right: 20px;
     width:20px;
 }
 
+#dialog {
+    overflow:hidden; 
+}
+
 /* responsive css */
 
    /*@media screen and (max-width: 1350px) {

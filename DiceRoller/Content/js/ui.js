@@ -26,5 +26,20 @@
     $("#users").click(function () {
         tiggle($(".userwell"));
     })
+
+    $("#dice").click(function () {
+        tiggle($("#dialog"));
+    });
+
+    $("#search").keydown(function (e) {
+            if (e.which == 27) {
+                $("#dialog").dialog("close");
+            }
+    });
+
+    $(".gsc-input").blur(function () {
+        $("#dialog").focus();
+
+    })
 })
 
