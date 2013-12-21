@@ -32,6 +32,10 @@ $.fn.sketchpad = function(options) {
         redraw();
     });
 
+    function resize() {
+
+    }
+
     // Return the mouse/touch location
     function getCursor(element, event) {
         var cur = {x: 0, y: 0};

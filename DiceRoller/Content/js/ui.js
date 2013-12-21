@@ -2,14 +2,25 @@
     function tiggle(elem) {
         if (elem.siblings().length > 0) {
             elem.toggle(200);
+            canvasResize(elem);
         }
         else {
             elem.parent().toggle(200);
         }
     }
 
+    function canvasResize(e) {
+        if ($(e).hasClass('right')) {
+            $("#mainArea").toggleClass("span6")
+            $("#mainArea").toggleClass("span9")
+            sketchpad.resize();
+        }
+    }
+
     $(".close").click(function () {
-        $(this).closest('.sidebar').toggle(200);
+        var sidebar = $(this).closest('.sidebar');
+        sidebar.toggle(200);
+        canvasResize(sidebar);
     })
 
 
@@ -19,7 +30,7 @@
 
 
     $("#spreadsheet").click(function () {
-        tiggle($(".xpwell"));
+        tiggle($(".xpwell"));        
     })
 
 

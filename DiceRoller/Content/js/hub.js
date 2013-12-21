@@ -8,10 +8,6 @@
         sketchHub.getImg(img);
     };
 
-    diceroller.client.clearImg = function () {
-        sketchHub.doClear();
-    };
-
     diceroller.client.updateUsers = function (users) {
         userHub.setNames(users, $('#userList').get(0))
     };

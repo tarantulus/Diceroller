@@ -5,16 +5,23 @@
 <script type="text/javascript" src="../../Content/js/hub.js"></script>
 
 <div class="container-fluid">
-
     <div class="row-fluid">
-            <div class="sidebar left well dicewell span3">
-                <a class="close">x</a>
-                <div>
-                    @Html.Partial("_DieRollerPartial")
-                </div>
+        <div class="sidebar left span3">
+        <div  class="userwell well">
+            <a class="close">x</a>
+            <div>
+                @Html.Partial("_UserPartial")
+    </div>
         </div>
+        <div class="dicewell well">
+            <a class="close">x</a>
+            <div>
+                @Html.Partial("_DieRollerPartial")
+    </div>
+        </div>
+            </div>
 
-        <div class="span7 well">
+        <div id="mainArea" class="span6 well">
             <div class="content">
 
                 <!--<div class="hero-unit">
@@ -23,24 +30,18 @@
         </div>-->
                 <div>
                     @Html.Partial("_ResponsiveSketchPadPartial")
-                </div>
+    </div>
             </div>
         </div>
 
 
-            <div class="sidebar right well userwell span2">
-                <a class="close">x</a>
-                <div>
-                    @Html.Partial("_UserPartial")
-                </div>
-            </div>
-            <div class="sidebar right well xpwell span2">
-                <a class="close">x</a>
-                <div>
-                    @Html.Partial("_XpTablePartial")
-                </div>
-            </div>
+        <div class="sidebar right well xpwell span3">
+            <a class="close">x</a>
+            <div>
+                @Html.Partial("_XpTablePartial")
     </div>
+        </div>
+</div>
 
 
 </div>
