@@ -11,8 +11,10 @@
 
     function canvasResize(e) {
         if ($(e).hasClass('right')) {
+            $("#leftArea").toggleClass("span3")
+            $("#leftArea").toggleClass("span4")
             $("#mainArea").toggleClass("span6")
-            $("#mainArea").toggleClass("span9")
+            $("#mainArea").toggleClass("span8")
             sketchpad.resize();
         }
     }

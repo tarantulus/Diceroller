@@ -3,11 +3,13 @@
 <div id="roller">
     <label for="message">Message</label>
     <textarea id="message" class="span12"></textarea>
-    <label for="diceroll">Dice to roll</label>
+    <label for="diceroll">Dice to roll/Mod</label>
     <input type="text" id="diceroll"  class="span12"/>
     <label for="numdice">How many times?</label>
-    <input type="text" id="numdice"  class="span12"/>
-    <input type="button" id="sendmessage" value="Send" />
+    <input type="text" id="numdice"  class="span12"/>    
+    <input type="button" id="sendhit" value="ToHit" />
+    <input type="button" id="senddmg" value="Damage" />
+    <input type="button" id="sendmessage" value="Chat/Other" />  
     <input type="button" id="setInit" value="Init" />
     <input type="hidden" id="displayname" />
     <ul id="log">
@@ -19,7 +21,7 @@
 <script type="text/javascript">
     $('#roller').bind('keypress', function (e) {
         if (e.keyCode == 13) {
-            $(this).find('input[type=button]:first').click();
+            $(this).find('input[type=button]:nth-child(3)').click();
         }
     });
 </script>

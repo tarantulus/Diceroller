@@ -25,15 +25,36 @@
 
     getMessage: function (name, message, log) {
         var li = document.createElement('li');
-        li.innerHTML ='<em>' + name
-            + '</em>:&nbsp;&nbsp;' +
-            helper.prettyPrint(message)
+        var em = document.createElement('em');
+        em.innerText = name;
+        li.appendChild(em);
+        li.innerHTML = li.innerHTML + ": " + message;
+        log.prepend(li);
+
         helper.prune(log);
-        log.prepend(li)
+
+
         if (name == this.user) {
             log.prepend('<hr />')
         }
+
+    },
+
+    getDice: function (name, message, log) {
+        var li = document.createElement('li');
+        var em = document.createElement('em');        
+        em.innerText = name;
+        li.appendChild(em);
+        li.innerHTML = helper.prettyPrint(message);        
+        log.prepend(li);
         
+        helper.prune(log);
+
+        
+        if (name == this.user) {
+            log.prepend('<hr />')
+        }
+
     }
 
 }

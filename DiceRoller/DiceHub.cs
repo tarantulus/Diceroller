@@ -61,8 +61,15 @@ namespace DiceRoller
             foreach (KeyValuePair<string, object> entry in _log)
             {
                 string name = entry.Key;
-                object msg = entry.Value;                
-                Clients.Caller.broadcastMessage(name, msg);
+                var msg = entry.Value;
+                if (entry.Value is String)
+                {
+                    Clients.Caller.broadcastMessage(name, msg);
+                }
+                else 
+                {
+                    Clients.Caller.broadcastDice(name, msg);
+                }
             }
             SendCanvas(_log.LastImg);
         }
@@ -114,8 +121,8 @@ namespace DiceRoller
                     var parsedRolls = roller.Parse(die);
                     runningTotal = runningTotal + parsedRolls[0].Sum(); 
                     string counter = (numRolls - i).ToString();
-                    Clients.All.broadcastMessage(counter,parsedRolls);                    
-                    _log.Add(new KeyValuePair<string, object>(counter,parsedRolls));
+                    Clients.All.broadcastDice(counter,parsedRolls);                    
+                    _log.Add(new KeyValuePair<string, object>(counter,parsedRolls.ToArray()));
                 
             }
             int avg = runningTotal / numRolls;

@@ -3,10 +3,6 @@
     border-color:grey;
 }
 
-input[type=text] {
-    max-width: 165px;
-}
-
 .container-fluid > .sidebar {
     position: relative;
     top: 0;

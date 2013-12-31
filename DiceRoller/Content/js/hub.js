@@ -3,6 +3,9 @@
     diceroller.client.broadcastMessage = function (label, message) {
         rollerHub.getMessage(label, message, $('#log'));
     };
+    diceroller.client.broadcastDice = function (label, dice) {
+        rollerHub.getDice(label, dice, $('#log'));
+    };
 
     diceroller.client.broadcastImg = function (img) {
         sketchHub.getImg(img);
@@ -70,6 +73,24 @@
             var request = {
                 roll: $('#diceroll').val(),
                 message: $('#message').val(),
+                numrolls: $('#numdice').val(),
+                user: $('#displayname').val()
+            }
+            rollerHub.sendMessage(request);
+        });
+        $('#sendhit').click(function () {
+            var request = {
+                roll: $('#diceroll').val(),
+                message: "To Hit: " + $('#message').val(),
+                numrolls: $('#numdice').val(),
+                user: $('#displayname').val()
+            }
+            rollerHub.sendMessage(request);
+        });
+        $('#senddmg').click(function () {
+            var request = {
+                roll: $('#diceroll').val(),
+                message: "Damage: " + $('#message').val(),
                 numrolls: $('#numdice').val(),
                 user: $('#displayname').val()
             }
