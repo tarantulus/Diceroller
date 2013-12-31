@@ -2,7 +2,7 @@
 
     prettyPrint: function (data) {
         var html = "";
-        if (data instanceof Array) {
+        if (typeof(data) === "object") {
             var total = 0;
             for (var i = 0; i < data[0].length; i++) {
                 total = total + data[0][i];
