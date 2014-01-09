@@ -125,7 +125,7 @@
     <Compile Include="Hubs\UserHub.cs" />
     <Compile Include="Interfaces\DataStore.cs" />
     <Compile Include="Dice.cs" />
-    <Compile Include="DiceHub.cs" />
+    <Compile Include="Hubs\DiceHub.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -169,13 +169,13 @@
     <Content Include="Content\css\spectrum.css" />
     <Content Include="Content\js\hub.js" />
     <Content Include="Content\js\helpers.js" />
-    <Content Include="Content\js\rollerHub.js" />
-    <Content Include="Content\js\sketchHub.js" />
+    <Content Include="Content\js\diceClient.js" />
+    <Content Include="Content\js\sketchClient.js" />
     <None Include="Content\js\sketchPad.js.old" />
     <Content Include="Content\js\sketchPad.js" />
     <Content Include="Content\js\trsanders-responsive-sketchpad\responsive-sketchpad.js" />
     <Content Include="Content\js\ui.js" />
-    <Content Include="Content\js\userHub.js" />
+    <Content Include="Content\js\userClient.js" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -279,7 +279,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Shared\_SketchPadPartial.cshtml" />
     <Content Include="Views\Shared\_DieRollerPartial.cshtml" />
     <Content Include="Views\Shared\_CSEPartial.cshtml" />

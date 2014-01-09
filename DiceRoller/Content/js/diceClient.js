@@ -1,4 +1,4 @@
-﻿var rollerHub = {
+﻿var diceClient = {
 
     init: function (hub) {
         this.hub = hub;

@@ -10,6 +10,19 @@ namespace DiceRoller.Hubs
     [UsedImplicitly]
     public class CanvasHub:Hub
     {
+        private readonly static Lazy<CanvasHub> _instance = new Lazy<CanvasHub>(
+            () => new CanvasHub(GlobalHost.ConnectionManager.GetHubContext<CanvasHub>()));
+
+        private IHubContext _context;
+        public static CanvasHub Instance { get { return _instance.Value; } }
+        private CanvasHub(IHubContext context)
+        {
+            _context = context;
+        }
+        public CanvasHub()
+        {
+        }
+
         public void SendCanvas(object img)
         {   if (img != null)         
             Clients.All.broadcastImg(img);

@@ -1,4 +1,4 @@
-﻿var userHub = {
+﻿var userClient = {
 
     init: function (hub) {
         this.hub = hub;

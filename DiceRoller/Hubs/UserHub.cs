@@ -9,42 +9,57 @@ namespace DiceRoller.Hubs
 {
     public class UserHub : Hub
     {
-        
+
         UserCollection users = UserCollection.Instance();
 
-        public override Task OnConnected()
+        private readonly static Lazy<UserHub> _instance = new Lazy<UserHub>(
+            () => new UserHub(GlobalHost.ConnectionManager.GetHubContext<DiceHub>()));
+
+        private IHubContext _context;
+        public static UserHub Instance { get { return _instance.Value; } }
+        private UserHub(IHubContext context)
         {
-            Login();
+            _context = context;
+        }
+        public UserHub()
+        {
+        }
+
+        public Task OnConnected(string connectionId)
+        {
+            Login(connectionId);
             UpdateUsers();
             return base.OnDisconnected();
         }
-        
 
-        public override Task OnDisconnected()
+
+        public Task OnDisconnected(string connectionId)
         {
-            Logout();
+            Logout(connectionId);
             UpdateUsers();
             return base.OnDisconnected();
         }
-        
 
 
-        public void Login()
+
+        public void Login(string connectionId)
         {
-            if (users.All(user => user.ClientId != Context.ConnectionId))
+            if (users.All(user => user.ClientId != connectionId))
             {
                 User thisUser = new User();
-                thisUser.ClientId = Context.ConnectionId;
-                users.Add(thisUser);                
+                thisUser.ClientId = connectionId;
+                users.Add(thisUser);
+                UpdateUsers();
             }
         }
 
-        public void Logout()
+        public void Logout(string connectionId)
         {
-            if (users.Any(user => user.ClientId == Context.ConnectionId))
+            if (users.Any(user => user.ClientId == connectionId))
             {
-                users.RemoveAll(user => user.ClientId == Context.ConnectionId);
+                users.RemoveAll(user => user.ClientId == connectionId);
             }
+            UpdateUsers();
         }
 
         public User CurrentUser
@@ -54,7 +69,7 @@ namespace DiceRoller.Hubs
 
         public void UpdateUsers()
         {
-            Clients.All.UpdateUsers(users);
+            _context.Clients.All.UpdateUsers(users);
         }
 
         public void SetName(string name)

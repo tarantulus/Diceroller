@@ -1,71 +1,72 @@
 ﻿$(function () {
-    var diceroller = $.connection.diceHub;
-    diceroller.client.broadcastMessage = function (label, message) {
-        rollerHub.getMessage(label, message, $('#log'));
+    var diceHub = $.connection.diceHub;
+    diceHub.client.broadcastMessage = function (label, message) {
+        diceClient.getMessage(label, message, $('#log'));
     };
-    diceroller.client.broadcastDice = function (label, dice) {
-        rollerHub.getDice(label, dice, $('#log'));
-    };
-
-    diceroller.client.broadcastImg = function (img) {
-        sketchHub.getImg(img);
+    diceHub.client.broadcastDice = function (label, dice) {
+        diceClient.getDice(label, dice, $('#log'));
     };
 
-    diceroller.client.updateUsers = function (users) {
-        userHub.setNames(users, $('#userList').get(0))
+    diceHub.client.broadcastImg = function (img) {
+        sketchClient.getImg(img);
     };
 
-    diceroller.client.userIsDrawing = function (user) {
-        sketchHub.startDraw($('#notify'),user);
+    diceHub.client.updateUsers = function (users) {
+        userClient.setNames(users, $('#userList').get(0))
     };
 
-    diceroller.client.userStoppedDrawing = function (user) {
-        sketchHub.EndDraw(user);
+    diceHub.client.userIsDrawing = function (user) {
+        sketchClient.startDraw($('#notify'),user);
+    };
+
+    diceHub.client.userStoppedDrawing = function (user) {
+        sketchClient.EndDraw(user);
     };
     // Start the connection.
     $.connection.hub.start().done(function () {
+        var chatHub = $.connection.chatHub;
+        var userHub = $.connection.userHub;
+        var canvasHub = $.connection.canvasHub;
         canvas = $("#sketchPad").get(0);
         context = canvas.getContext('2d');
-        sketchHub.init(diceroller, context, canvas);
-        rollerHub.init(diceroller);
-        userHub.init(diceroller);
-        // Get the user name and store it to prepend to messages.
-        //user = prompt("Please enter your name");
+        sketchClient.init(canvasHub, context, canvas);
+        diceClient.init(diceHub);
+        userClient.init(diceClient);
         user = "anon";
-        diceroller.state.userName = user;
+        diceHub.state.userName = user;
         $('#user').empty().append("not logged in");
         $('#displayname').val(user);
         // Set initial focus to message input box.  
         $('#message').focus();
-        diceroller.server.setName(user);
-        diceroller.server.getLog();
+        userHub.server.setName(user);
+        diceHub.server.getLog();
 
         $('#message').val('');
         $('#sketchPad').bind("mousedown",(function () {
-            sketchHub.notifyDraw();
+            sketchClient.notifyDraw();
         }));
         $('#sketchPad').bind("mouseup",(function () {
-            sketchHub.sendImg();
-            sketchHub.notifyEndDraw();
+            sketchClient.sendImg();
+            sketchClient.notifyEndDraw();
         }));
 
         $('#clear').bind("click", function () {
-            sketchHub.clearImg();
+            sketchClient.clearImg();
         });
 
         $('#setInit').click(function () {
-            diceroller.server.setInit($('#diceroll').val());
+            diceHub.server.setInit($('#diceroll').val());
         });
 
         $('#userlogin').blur(function () {
             user = $('#userlogin').val();
-            diceroller.state.userName = user;
+            diceHub.state.userName = user;
             $('#user').empty().append("Logged in as " + user);
             $('#displayname').val(user);
             // Set initial focus to message input box.  
             $('#message').focus();
-            diceroller.server.setName(user);
-            diceroller.server.getLog();
+            userHub.server.setName(user);
+            diceHub.server.getLog();
             $('#userlogin').hide();
         });
 
@@ -76,7 +77,7 @@
                 numrolls: $('#numdice').val(),
                 user: $('#displayname').val()
             }
-            rollerHub.sendMessage(request);
+            diceClient.sendMessage(request);
         });
         $('#sendhit').click(function () {
             var request = {
@@ -85,7 +86,7 @@
                 numrolls: $('#numdice').val(),
                 user: $('#displayname').val()
             }
-            rollerHub.sendMessage(request);
+            diceClient.sendMessage(request);
         });
         $('#senddmg').click(function () {
             var request = {
@@ -94,10 +95,10 @@
                 numrolls: $('#numdice').val(),
                 user: $('#displayname').val()
             }
-            rollerHub.sendMessage(request);
+            diceClient.sendMessage(request);
         });
         $('#makeRoom').click(function () {
-            diceroller.server.createRoom("dave", "");
+            diceHub.server.createRoom("dave", "");
         });
     });    
 });
