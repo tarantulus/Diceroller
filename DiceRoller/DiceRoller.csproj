@@ -132,6 +132,7 @@
     <Compile Include="Helpers\HTMLhelper.cs" />
     <Compile Include="log.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomProvider.cs" />
     <Compile Include="Classes\User.cs" />
