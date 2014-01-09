@@ -1,59 +1,66 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 
 namespace DiceRoller.Hubs
 {
-    public class UserHub
+    public class UserHub : Hub
     {
-        IHubContext _context = GlobalHost.ConnectionManager.GetHubContext<DiceHub>();
-        UserCollection users = UserCollection.Instance();        
-        public static UserHub Instance()
-        {
-            // Uses lazy initialization.
-            // Note: this is not thread safe.
-            if (_instance == null)
-            {
-                _instance = new UserHub();
-            }
+        
+        UserCollection users = UserCollection.Instance();
 
-            return _instance;
+        public override Task OnConnected()
+        {
+            Login();
+            UpdateUsers();
+            return base.OnDisconnected();
         }
-        private static UserHub _instance;        
+        
 
-        public void Login(string connectionId)
+        public override Task OnDisconnected()
         {
-            if (!users.Where(user => user.ClientId == connectionId).Any())
+            Logout();
+            UpdateUsers();
+            return base.OnDisconnected();
+        }
+        
+
+
+        public void Login()
+        {
+            if (users.All(user => user.ClientId != Context.ConnectionId))
             {
                 User thisUser = new User();
-                thisUser.ClientId = connectionId;
+                thisUser.ClientId = Context.ConnectionId;
                 users.Add(thisUser);                
             }
         }
 
-        public void Logout(string connectionId)
+        public void Logout()
         {
-            if (users.Where(user => user.ClientId == connectionId).Any())
+            if (users.Any(user => user.ClientId == Context.ConnectionId))
             {
-                users.RemoveAll(user => user.ClientId == connectionId);
+                users.RemoveAll(user => user.ClientId == Context.ConnectionId);
             }
         }
 
-        public User CurrentUser (string connectionId)
-        { 
-            return users.Where(user => user.ClientId == connectionId).FirstOrDefault();
+        public User CurrentUser
+        {
+            get { return users.FirstOrDefault(user => user.ClientId == Context.ConnectionId); }
         }
 
         public void UpdateUsers()
         {
-            _context.Clients.All.UpdateUsers(users);
+            Clients.All.UpdateUsers(users);
         }
 
-        public void SetName(string name, string connectionId)
+        public void SetName(string name)
         {
-            CurrentUser(connectionId).Name = name;
+            CurrentUser.Name = name;
+            UpdateUsers();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DiceRoller.Annotations;
 using Microsoft.AspNet.SignalR;
 using System.Data;
 using System.Web.Script.Serialization;
@@ -11,7 +12,7 @@ using System.Web.SessionState;
 using DiceRoller.Hubs;
 namespace DiceRoller
 {
-    
+    [UsedImplicitly]
     public class DiceHub : Hub
     {
         #region setup
@@ -20,36 +21,25 @@ namespace DiceRoller
         Helpers.HTMLhelper _htmlHelper = new Helpers.HTMLhelper();
         static HttpSessionState session = HttpContext.Current.Session;
         private ChatHub chatHub = ChatHub.Instance();
-        private CanvasHub canvasHub = CanvasHub.Instance();        
-        private UserHub userHub = UserHub.Instance();
+        private CanvasHub canvasHub = CanvasHub.Instance();   
+        
         #endregion
 
         #region ConnectionActions
         public override Task OnConnected()
         {
-            userHub.Login(Context.ConnectionId);
             Clients.Caller.clearImg();
             return base.OnConnected();
         }
 
-        public override Task OnDisconnected()
-        {
-            userHub.Logout(Context.ConnectionId);
-            userHub.UpdateUsers();
-            return base.OnDisconnected();
-        }
-        
+
         
         #endregion
 
 
         #region prepActions
 
-        public void SetName(string userName)
-        {
-            userHub.SetName(userName, Context.ConnectionId);            
-            userHub.UpdateUsers();
-        }
+
 
         public string GetName()
         {

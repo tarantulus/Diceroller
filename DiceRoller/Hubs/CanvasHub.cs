@@ -6,41 +6,26 @@ using Microsoft.AspNet.SignalR;
 
 namespace DiceRoller.Hubs
 {
-    public class CanvasHub
+    public class CanvasHub:Hub
     {
-        private static CanvasHub _instance;
-        public static CanvasHub Instance()
-        {
-            // Uses lazy initialization.
-            // Note: this is not thread safe.
-            if (_instance == null)
-            {
-                _instance = new CanvasHub();
-            }
-
-            return _instance;
-        }
-
-        IHubContext _context = GlobalHost.ConnectionManager.GetHubContext<DiceHub>();
-
         public void SendCanvas(object img)
         {   if (img != null)         
-            _context.Clients.All.broadcastImg(img);
+            Clients.All.broadcastImg(img);
         }
 
         public void ClearImg()
         {
-            _context.Clients.All.clearImg();
+            Clients.All.clearImg();
         }
 
         public void userIsDrawing(string userName)
         {
-            _context.Clients.All.userIsDrawing(userName);
+            Clients.All.userIsDrawing(userName);
         }
 
         public void userStoppedDrawing(string userName)
         {            
-            _context.Clients.All.userStoppedDrawing(userName);
+            Clients.All.userStoppedDrawing(userName);
         }
     }
 }
