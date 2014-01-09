@@ -34,8 +34,10 @@ namespace DiceRoller.DataLayer
 
         public object GetData(Type type)
         {
-
-            return this.serializer.Deserialize(path, type);
+            StreamReader file = new StreamReader(path);
+            string text = file.ReadToEnd();
+            return this.serializer.Deserialize(text, type);
+            file.Close();
         }
 
         public void Update(object data)

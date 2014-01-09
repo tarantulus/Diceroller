@@ -35,6 +35,17 @@
         if (chld.length > 100) {
             $(node).slice(100).remove();
         }
+    },
+
+    getQueryString: function (sVar) {
+        urlStr = window.location.search.substring(1);
+        sv = urlStr.split("&");
+        for (i=0;i< sv.length;i++) {
+            ft = sv [i].split("=");
+            if (ft[0] == sVar) {
+                return ft[1];
+            }
+        }
     }
 
 }
