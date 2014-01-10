@@ -10,8 +10,8 @@ namespace DiceRoller
     {
         void Create();
         bool Exists();
-        Object GetData(Type type);
-        void Update(Object data);
+        Object GetData<T>();
+        void Update<T>(Object data);
         bool Delete();
     }
 }

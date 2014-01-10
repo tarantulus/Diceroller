@@ -25,12 +25,12 @@ namespace DiceRoller.Hubs
 
         public void Login(string connectionId)
         {
-            if (!users.Where(user => user.ClientId == connectionId).Any())
-            {
-                User thisUser = new User();
-                thisUser.ClientId = connectionId;
-                users.Add(thisUser);                
-            }
+        //    if (!users.Where(user => user.ClientId == connectionId).Any())
+        //    {
+        //        User thisUser = new User();
+        //        thisUser.ClientId = connectionId;
+        //        users.Add(thisUser);                
+        //    }
         }
 
         public void Logout(string connectionId)

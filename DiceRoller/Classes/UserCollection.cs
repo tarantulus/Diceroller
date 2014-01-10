@@ -9,7 +9,7 @@ namespace DiceRoller
     {
         private static UserCollection _instance;
 
-        protected UserCollection()
+        public UserCollection()
         {
         }
 

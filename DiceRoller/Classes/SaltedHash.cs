@@ -8,6 +8,10 @@ public class SaltedHash
     public string Hash { get; private set; }
     public string Salt { get; private set; }
 
+    public SaltedHash()
+    {
+    }
+
     public SaltedHash(string password)
     {
         var saltBytes = new byte[32];
@@ -34,7 +38,7 @@ public class SaltedHash
         return passwordBytes.Concat(saltBytes).ToArray();
     }
 
-    public static bool Verify(string salt, string hash, string password)
+    public bool Verify(string salt, string hash, string password)
     {
         var saltBytes = Convert.FromBase64String(salt);
         var passwordAndSaltBytes = Concat(password, saltBytes);

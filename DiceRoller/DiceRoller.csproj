@@ -114,6 +114,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\AuthenticationService.cs" />
     <Compile Include="Classes\Room.cs" />
     <Compile Include="Classes\RoomCollection.cs" />
     <Compile Include="Classes\SaltedHash.cs" />

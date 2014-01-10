@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DiceRoller.Classes;
 using Microsoft.AspNet.SignalR;
 using System.Data;
 using System.Web.Script.Serialization;
@@ -87,13 +88,13 @@ namespace DiceRoller
             if (!store.Exists()){
             store.Create();            
             }
-            store.Update(room);
+            store.Update<Room>(room);
         }
 
         public void JoinRoom(string id)
         {
             DataStore store = new DataLayer.JsonStore("rooms");
-            store.GetData(typeof(Classes.RoomCollection));
+            store.GetData<List<Room>>();
         }
 
         #endregion
