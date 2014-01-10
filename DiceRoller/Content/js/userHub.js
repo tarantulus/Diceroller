@@ -6,5 +6,5 @@
 
     setNames: function (users, element) {
         element.innerHTML = helper.getNames(users);
-    }
+    },
 }

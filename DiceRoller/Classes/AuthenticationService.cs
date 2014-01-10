@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using DiceRoller.DataLayer;
 
 namespace DiceRoller.Classes
@@ -28,7 +29,7 @@ namespace DiceRoller.Classes
         public bool AuthenticateUser(string username, string password)
         {
             var user = GetUserByName(username);
-            if (user.SaltedHash.Verify(user.SaltedHash.Salt, user.SaltedHash.Hash, password))
+            if (user!= null && user.SaltedHash.Verify(user.SaltedHash.Salt, user.SaltedHash.Hash, password))
             {
                 return true;
             }
@@ -56,6 +57,11 @@ namespace DiceRoller.Classes
             data.Remove(data.First(u => u.Name == user.Name));
             data.Add(user);
             _database.Update<UserCollection>(user);
+        }
+
+        public void LogOut()
+        {
+            FormsAuthentication.SignOut();
         }
 
     

@@ -1,5 +1,15 @@
 ﻿<script type="text/javascript" src=@Url.Content("~/Content/js/userHub.js")></script>
-<input id="userlogin" type="text" class="span10"/>
+@if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+{
+    <p><script type="text/javascript">
+               var loggedInUser = "@System.Web.HttpContext.Current.User.Identity.Name"
+       </script>    
+    </p>
+}
+else
+{
+    @Html.ActionLink("Login","Logon","Account");
+}
 <div>
 <p class="pull-right lead" id="user">&nbsp;</p>
     </div>

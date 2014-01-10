@@ -5,8 +5,8 @@ using System.Security.Cryptography;
 
 public class SaltedHash
 {
-    public string Hash { get; private set; }
-    public string Salt { get; private set; }
+    public string Hash { get;  set; }
+    public string Salt { get;  set; }
 
     public SaltedHash()
     {
