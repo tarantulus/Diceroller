@@ -32,7 +32,7 @@
         
         // Get the user name and store it to prepend to messages.
         //user = prompt("Please enter your name");
-        if (typeof (loggedInUser) == undefined || loggedInUser == "") {
+        if (typeof (loggedInUser) == "undefined") {
             user = "anon";
             diceroller.state.userName = user;
             $('#user').empty().append("not logged in");
