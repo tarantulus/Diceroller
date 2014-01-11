@@ -146,7 +146,7 @@ namespace DiceRoller
         public void SendCanvas(object img)
         {
             _log.LastImg = img;
-            canvasHub.SendCanvas(img);
+            canvasHub.SendCanvas(img,Context.ConnectionId);
         }
 
         public void ClearImg()

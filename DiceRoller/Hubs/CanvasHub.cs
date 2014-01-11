@@ -23,9 +23,9 @@ namespace DiceRoller.Hubs
 
         IHubContext _context = GlobalHost.ConnectionManager.GetHubContext<DiceHub>();
 
-        public void SendCanvas(object img)
-        {   if (img != null)         
-            _context.Clients.All.broadcastImg(img);
+        public void SendCanvas(object img, string connectionId)
+        {   if (img != null)
+            _context.Clients.AllExcept(connectionId).broadcastImg(img);
         }
 
         public void ClearImg()
@@ -39,7 +39,7 @@ namespace DiceRoller.Hubs
         }
 
         public void userStoppedDrawing(string userName)
-        {            
+        {
             _context.Clients.All.userStoppedDrawing(userName);
         }
     }
