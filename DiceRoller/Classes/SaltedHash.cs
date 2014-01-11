@@ -5,8 +5,12 @@ using System.Security.Cryptography;
 
 public class SaltedHash
 {
-    public string Hash { get; private set; }
-    public string Salt { get; private set; }
+    public string Hash { get;  set; }
+    public string Salt { get;  set; }
+
+    public SaltedHash()
+    {
+    }
 
     public SaltedHash(string password)
     {
@@ -34,7 +38,7 @@ public class SaltedHash
         return passwordBytes.Concat(saltBytes).ToArray();
     }
 
-    public static bool Verify(string salt, string hash, string password)
+    public bool Verify(string salt, string hash, string password)
     {
         var saltBytes = Convert.FromBase64String(salt);
         var passwordAndSaltBytes = Concat(password, saltBytes);

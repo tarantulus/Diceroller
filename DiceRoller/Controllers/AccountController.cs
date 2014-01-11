@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using DiceRoller.Classes;
 using DiceRoller.Models;
 
 namespace DiceRoller.Controllers
@@ -22,13 +23,13 @@ namespace DiceRoller.Controllers
 
         //
         // POST: /Account/LogOn
-
+        AuthenticationService _authenticationService = new AuthenticationService();
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                if (Membership.ValidateUser(model.UserName, model.Password))
+                if (_authenticationService.AuthenticateUser(model.UserName, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
@@ -78,17 +79,18 @@ namespace DiceRoller.Controllers
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
-                MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
-
-                if (createStatus == MembershipCreateStatus.Success)
+                //MembershipCreateStatus createStatus;
+                User newUser = new User(model.UserName, model.Password);
+                _authenticationService.RegisterUser(newUser, model.Password);
+                
+                if (_authenticationService.AuthenticateUser(model.UserName,model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                    ModelState.AddModelError("", "There was a problem with your request");
                 }
             }
 
@@ -117,15 +119,15 @@ namespace DiceRoller.Controllers
 
                 // ChangePassword will throw an exception rather
                 // than return false in certain failure scenarios.
-                bool changePasswordSucceeded;
+                bool changePasswordSucceeded = false;
                 try
                 {
-                    MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
-                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
+                    //User currentUser = _authenticationService.GetUserByName(model.);
+                    //changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
                 }
                 catch (Exception)
                 {
-                    changePasswordSucceeded = false;
+                    //changePasswordSucceeded = false;
                 }
 
                 if (changePasswordSucceeded)

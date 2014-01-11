@@ -29,7 +29,7 @@ namespace DiceRoller.Hubs
             {
                 User thisUser = new User();
                 thisUser.ClientId = connectionId;
-                users.Add(thisUser);                
+                users.Add(thisUser);
             }
         }
 
