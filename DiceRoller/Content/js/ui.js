@@ -20,9 +20,7 @@
     }
 
     $(".close").click(function () {
-        var sidebar = $(this).closest('.sidebar');
-        sidebar.toggle(200);
-        canvasResize(sidebar);
+        tiggle($(this).parent());        
     })
 
 
