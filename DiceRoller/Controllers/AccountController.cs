@@ -80,17 +80,22 @@ namespace DiceRoller.Controllers
             {
                 // Attempt to register the user
                 //MembershipCreateStatus createStatus;
-                User newUser = new User(model.UserName, model.Password);
-                _authenticationService.RegisterUser(newUser, model.Password);
-                
-                if (_authenticationService.AuthenticateUser(model.UserName,model.Password))
+                User newUser = new User(model.UserName, model.Password) { Email = model.Email };
+                var result = _authenticationService.RegisterUser(newUser, model.Password);
+
+                if (result == AuthenticationService.RegisterResult.Success)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
                     return RedirectToAction("Index", "Home");
                 }
+                else if (result == AuthenticationService.RegisterResult.UserExists)
+                {
+                    ModelState.AddModelError("", "You are already registered");
+                }
+
                 else
                 {
-                    ModelState.AddModelError("", "There was a problem with your request");
+                    ModelState.AddModelError("", "There has been an error with your registration");
                 }
             }
 

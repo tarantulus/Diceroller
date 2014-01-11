@@ -15,7 +15,7 @@ namespace DiceRoller.DataLayer
         {
 
             string root = AppDomain.CurrentDomain.BaseDirectory;
-            this.path = string.Format("{0}{1}.txt", root, name);
+            this.path = string.Format("{0}/Storage/{1}.txt", root, name);
             if (!Exists())
             {
                 Create();

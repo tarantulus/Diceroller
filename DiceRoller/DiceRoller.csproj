@@ -125,16 +125,16 @@
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Hubs\UserHub.cs" />
     <Compile Include="Interfaces\DataStore.cs" />
-    <Compile Include="Dice.cs" />
-    <Compile Include="DiceHub.cs" />
+    <Compile Include="Classes\Dice.cs" />
+    <Compile Include="Hubs\DiceHub.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HTMLhelper.cs" />
-    <Compile Include="log.cs" />
+    <Compile Include="Classes\log.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RandomProvider.cs" />
+    <Compile Include="Classes\RandomProvider.cs" />
     <Compile Include="Classes\User.cs" />
     <Compile Include="Classes\UserCollection.cs" />
     <Compile Include="Startup.cs" />
@@ -290,6 +290,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Storage\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -13,13 +13,30 @@ namespace DiceRoller.Classes
         public AuthenticationService()
         {
         }
-        public void RegisterUser(User user, string password)
+        public RegisterResult RegisterUser(User user, string password)
         {
             user.SaltedHash = new SaltedHash(password);
             var data = GetAllUsers();
+            if (data.Any(u => u.Name == user.Name))
+            {
+                return RegisterResult.UserExists;
+            }
+            if (data.Any(u => u.Email == user.Email))
+            {
+                return RegisterResult.EmailExists;
+            }
             data.Add(user);
             _database.Update<UserCollection>(data);
+            return RegisterResult.Success;
+            
         }
+
+        public enum RegisterResult
+        {
+            UserExists,
+            EmailExists,
+            Success
+        };
 
         public string Hash(string salt, string data)
         {

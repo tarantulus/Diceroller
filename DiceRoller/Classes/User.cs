@@ -19,6 +19,7 @@ namespace DiceRoller
         }
         public string ClientId { get; set; }
         public string Name { get; set; }
+        public string Email { get; set; }
         public int Init { get; set; }
         public SaltedHash SaltedHash { get; set; }
 
