@@ -219,5 +219,9 @@ $.fn.sketchpad = function(options) {
         redraw();
     };
 
+    this.clearFog = function () {
+        ctx.globalAlpha = 0.1;
+    }
+
     return this;
 };

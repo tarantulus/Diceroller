@@ -31,8 +31,7 @@
             var li = document.createElement('li');
             li.innerHTML = user + " is drawing";
             li.className = user + ' ' + 'notifyuser';
-            elem.append(li)
-            $(li).page();
+            elem.append(li);            
         },
 
         notifyEndDraw: function () {

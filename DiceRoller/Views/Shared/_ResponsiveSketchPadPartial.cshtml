@@ -3,19 +3,22 @@
 
 <div class="container" id="canvasContainer">
     <h2>Sketchpad</h2>
-<input type='text' id="colourPicker" value="#000" />
-        <select id="size">
-            @for (int i=1; i < 30; i++)
-            {
-                <option>@i</option>
-            }
-        </select>
-        <ul id="notify"></ul>
-        <br />
+    <input type='text' id="colourPicker" value="#000" />
+    <select id="size">
+        @for (int i = 1; i < 30; i++)
+        {
+            <option>@i</option>
+        }
+    </select>
+    <ul id="notify"></ul>
+    <br />
     <canvas id="sketchPad">
         <p>Unsupported Browser</p>
     </canvas>
-        </div>
+    <canvas id="fogOfWar">
+        <p>Unsupported Browser</p>
+    </canvas>
+</div>
 <script type="text/javascript">
     var sketchpad = $('#sketchPad').sketchpad({
         aspectRatio: 1 / 1,             // (Required) To preserve the drawing, an aspect ratio must be specified
@@ -23,4 +26,11 @@
         strokes: 'JSON',                // (Optional) Initialize the sketchpad with stroke data
     });
     sketchpad.setLineSize('1');
+    var fogOfWar = $('#fogOfWar').sketchpad({
+        aspectRatio: 1 / 1,             // (Required) To preserve the drawing, an aspect ratio must be specified
+        backgroundColor: '#000',      // (Optional) Set the background of the canvas
+        strokes: 'JSON',                // (Optional) Initialize the sketchpad with stroke data
+    });
+    fogOfWar.setLineSize('1');
+    fogOfWar.clearFog();
 </script>
